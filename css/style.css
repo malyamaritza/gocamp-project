@@ -1,0 +1,2951 @@
+:root {
+    /* Palet Warna Utama */
+    --primary-color: #005D25;   
+    --bg-color: #FAF9F6;        
+    --accent-color: #CC5500;    
+    
+    /* Warna Netral */
+    --text-dark: #333333;       
+    --text-light: #FFFFFF;      
+    --border-color: #E0E0E0;    
+
+    /* --- TYPOGRAPHY SETTING (Revisi Poppins) --- */
+    --font-main: 'Poppins', sans-serif; /* Kita simpan nama font di sini */
+}
+
+html, body {
+    margin: 0;
+    padding: 0; /* JANGAN PAKE !important */
+    width: 100%;
+    overflow-x: hidden; 
+}
+
+/* 2. Pastikan semua elemen nurut aturan border-box */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    
+    /* --- TAMBAHKAN INI --- */
+    /* Karena tinggi navbar kamu 80px, kita kasih padding segitu juga */
+    padding-top: 80px; 
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* Batas lebar konten biar gak terlalu lebar di monitor besar */
+    margin: 0 auto;    /* KUNCI UTAMA: Ini yang bikin posisi jadi di TENGAH */
+    padding: 0 20px;   /* Jaga-jaga biar gak nempel pinggir pas di layar HP */
+}
+
+/* --- NAVBAR STYLING --- */
+
+/* --- NAVBAR STYLING (FINAL REVISION) --- */
+
+.navbar {
+    /* 1. Tampilan Dasar */
+    background-color: var(--primary-color);
+    height: 80px;
+    width: 100%;
+    
+    /* 2. Layout Flex */
+    display: flex;
+    align-items: center; /* Vertikal tengah */
+    
+    /* 3. FITUR STICKY (Nempel di Atas) */
+    position: fixed;    /* Ubah jadi 'fixed' kalau sticky tidak jalan di browser lama */
+    top: 0;              /* Nempel pas di garis paling atas */
+    left: 0;             /* Paksa mentok kiri */
+    right: 0;            /* Paksa mentok kanan */
+    
+    /* 4. Layering (Agar tidak tertutup gambar/konten lain) */
+    z-index: 900;       /* Angka tinggi biar selalu di paling depan */
+    
+    /* 5. Efek Bayangan (Opsional tapi Recommended) */
+    /* Memberi efek 'melayang' supaya batas navbar dan konten di bawahnya jelas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+/* --- HERO SECTION STYLING --- */
+
+/* --- HERO SECTION STYLING --- */
+
+.hero-section {
+    /* ... kode dimensi dan background yang sudah ada ... */
+    width: 100%;
+    height: 622px;
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('../aset/image/hero_homepage.jpg');
+    background-size: cover;
+    background-position: center;
+    
+    /* Border Radius & Shadow */
+    border-radius: 0 0 70px 70px;
+    box-shadow: 0px 0px 17px 11px rgba(0, 0, 0, 0.25);
+
+    /* --- PERBAIKAN SHADOW AGAR TIDAK KEPOTONG --- */
+    
+    /* 1. Pastikan posisi layer lebih tinggi dari konten bawahnya */
+    position: relative;
+    z-index: 10;
+    
+    /* 2. BERIKAN JARAK KE BAWAH (PENTING!) */
+    /* Kita kasih margin sebesar 30px - 50px supaya shadow tidak tertimpa elemen berikutnya */
+    margin-bottom: 50px; 
+    
+    /* ... kode flexbox teks yang sudah ada ... */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    padding: 0 20px; 
+}
+
+/* 2. Judul Utama */
+.hero-content h1 {
+    font-size: 64px;
+    font-weight: 700; /* Bold */
+    margin-bottom: 10px; /* Jarak dikit ke subtitle */
+    line-height: 1.2;
+}
+
+/* 3. Subtitle */
+.hero-content p {
+    font-size: 32px;
+    font-weight: 200; /* ExtraLight (Sesuai request) */
+    margin-bottom: 40px; /* Jarak jauh ke button */
+}
+
+/* 4. Button Search Product */
+.btn-search {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--accent-color); /* Warna Oranye (#CC5500) */
+    color: var(--text-light);
+    
+    /* 4.1 Ukuran Font */
+    font-size: 20px;
+    font-weight: 500; /* Medium */
+    
+    /* 4.2 Padding (Atas-Bawah 10, Kiri-Kanan 30) */
+    padding: 10px 30px;
+    
+    /* 4.3 Border Button Full (Pill Shape) */
+    border-radius: 50px; /* Angka besar bikin jadi bulat lonjong */
+    
+    /* Efek Transisi biar halus pas di-hover */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-search:hover {
+    background-color: #A34400; /* Warna oranye lebih gelap pas kursor nempel */
+    transform: translateY(-2px); /* Efek naik dikit */
+}
+
+/* Container khusus Navbar untuk mengatur layout Flex */
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Membagi Kiri (Logo), Tengah (Menu), Kanan (Cart) */
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;              /* Lebar maksimal desktop standar */
+    margin: 0 auto;                 /* Posisi tengah layar */
+    padding: 0 40px;                /* Padding kiri-kanan agar tidak nempel pinggir */
+}
+
+/* 1. Logo Styling */
+.logo img {
+    width: 80px;    /* Spec No. 2 */
+    height: 80px;   /* Spec No. 2 */
+    object-fit: contain;
+    display: block; /* Menghilangkan bug spasi bawah pada image */
+}
+
+/* 2. Menu Links Styling */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 42px;      /* Spec No. 5: Gap antar teks 42px */
+    
+    /* Trik Flexbox untuk Spec No. 6 (Gap 414px) */
+    /* Kita gunakan margin otomatis kiri-kanan agar menu benar-benar di tengah
+       dan menciptakan jarak yang seimbang/lebar dari logo dan cart */
+    margin: 0 auto; 
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: var(--font-nav-size); /* Spec No. 3: Ukuran 16px */
+    font-weight: 400;                /* Regular/Normal */
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #A3CFA3; /* Efek hover (Hijau muda) biar interaktif */
+}
+
+/* 3. Icon Cart Styling */
+.nav-icon img {
+    width: 40px;    /* Spec No. 4 */
+    height: 40px;   /* Spec No. 4 */
+    display: block;
+    cursor: pointer;
+    filter: invert(1);
+}
+
+/* Badge Notifikasi Cart (Bulatan Merah/Oranye Kecil) */
+.nav-icon a {
+    position: relative;
+    display: block;
+}
+
+#cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- CATEGORIES SECTION STYLING --- */
+
+.categories-section {
+    /* Memberi jarak atas-bawah agar tidak nempel dengan Hero/Footer */
+    padding: 80px 0; 
+    text-align: center;
+}
+
+/* 1. Teks "Categories" */
+.categories-header h2 {
+    font-size: 48px;        /* Spec No. 1 */
+    font-weight: 700;       /* Bold */
+    color: var(--text-dark);
+    margin-bottom: 10px;    /* Jarak ke subtitle */
+    line-height: 1.2;
+}
+
+/* 2. Teks "Essentials..." */
+.categories-header p {
+    font-size: 32px;        /* Spec No. 2 */
+    font-weight: 200;       /* ExtraLight */
+    color: var(--text-dark);
+    margin-bottom: 60px;    /* Jarak ke Grid Gambar */
+}
+
+/* 4. Container Image Category (Flex) */
+.categories-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    
+    /* Gunakan gap lebih kecil sedikit agar aman di laptop */
+    gap: 20px; /* Kita kurangi dari 40px jadi 20px dulu biar muat */
+    
+    /* Pastikan lebar container grid 100% dari induknya */
+    width: 100%; 
+}
+
+/* 3. Image Category Card */
+.category-card {
+    /* REVISI 2: Hapus width statis (width: 295px) */
+    /* Ganti dengan Flex Property yang fleksibel */
+    flex: 1 1 250px; 
+    /* Artinya: Kartu boleh mengecil sampai 250px jika layar sempit */
+
+    /* REVISI 3: Batasi lebar maksimal */
+    /* Agar di layar besar tetap 295px sesuai desain Figma */
+    max-width: 295px;
+    
+    /* Sisa settingan tampilan tetap sama */
+    height: 370px;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    
+    /* Shadow tetap sama */
+    box-shadow: 0px 0px 26px 11px rgba(0, 0, 0, 0.15); 
+    
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px); /* Efek kartu naik sedikit saat di-hover */
+}
+
+/* 3.2 Gradient Layer (Overlay) */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* GRADIENT LOGIC SESUAI SPEC: */
+    /* Stop 50%: Hitam Opacity 0% (Transparent) */
+    /* Stop 80%: Hitam Opacity 100% (#000000) */
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 0, 0, 0) 0%, 
+        rgba(0, 0, 0, 0) 50%, 
+        #000000 80%,
+        #000000 100%
+    );
+    
+    z-index: 1; /* Di atas gambar, di bawah teks */
+}
+
+/* 3.3 Text di dalam Image */
+.card-text {
+    position: absolute;
+    bottom: 30px;            /* Jarak dari bawah kartu */
+    left: 0;
+    width: 100%;             /* Agar bisa rata tengah */
+    text-align: center;
+    
+    font-size: 24px;         /* Spec No. 3.3 */
+    font-weight: 600;        /* SemiBold */
+    color: var(--text-light);/* Putih */
+    
+    z-index: 2;              /* Paling atas (di atas overlay) */
+}
+
+/* --- WHY CHOOSE US SECTION --- */
+
+.why-choose-us {
+    padding: 100px 0; /* Memberi ruang atas-bawah yang lega */
+    background-color: var(--bg-color); /* Warna background #FAF9F6 */
+}
+
+/* Container Flexbox untuk membagi Kiri (Gambar) dan Kanan (Teks) */
+.why-container {
+    display: flex;
+    align-items: center;    /* Vertikal tengah */
+    
+    /* REVISI DI SINI: */
+    /* 1. Gunakan justify-content: center (atau flex-start) agar patuh pada gap */
+    justify-content: center; 
+    
+    /* 2. Set Gap presisi sesuai request */
+    gap: 62px;              
+}
+
+/* 1. Image Styling */
+.why-image img {
+    /* 1.1 Ukuran Gambar */
+    width: 540px;
+    height: 675px;
+    object-fit: cover;      /* Agar gambar tidak gepeng */
+    
+    /* 1.2 Border Radius */
+    border-radius: 20px;
+    
+    display: block;         /* Hilangkan bug spasi bawah */
+}
+
+/* Bagian Teks Utama (Kanan) */
+.why-content {
+    flex: 1;                /* Mengambil sisa ruang yang ada */
+    max-width: 600px;       /* Membatasi lebar teks agar enak dibaca */
+}
+
+/* 2. Header Text Styling */
+.why-header h2 {
+    font-size: 48px;        /* Spec No. 2 */
+    font-weight: 700;       /* Bold */
+    color: var(--text-dark);
+    margin-bottom: 24px;    /* Spec No. 2.2 (Gap ke paragraf) */
+    line-height: 1.2;
+}
+
+.why-header p {
+    font-size: 20px;        /* Spec No. 2.1 */
+    font-weight: 400;       /* Regular */
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 48px;    /* Spec No. 3.7 (Gap ke List Poin) */
+}
+
+/* 3. List Item Styling */
+.why-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;              /* Spec No. 3.6 (Gap antar nomor 1, 2, 3) */
+}
+
+.list-item {
+    display: flex;
+    align-items: flex-start; /* Sejajar atas agar nomor tidak turun kalau teks panjang */
+    gap: 42px;              /* Spec No. 3.5 (Gap nomor ke teks) */
+}
+
+/* 3.1 Angka/Nomor Badge */
+.number-badge {
+    /* Ukuran Font & Tebal */
+    font-size: 20px;
+    font-weight: 700;       /* Bold */
+    color: var(--text-light); /* Putih */
+    
+    /* Background Hijau */
+    background-color: var(--primary-color);
+    
+    /* Padding: Horizontal 10, Vertikal 4 */
+    padding: 4px 10px;
+    
+    /* Bentuk Bulat Sempurna (Pill Shape) */
+    border-radius: 100px;   /* Spec No. 3.1 */
+    
+    /* Agar ukuran badge tidak mengecil terdesak teks */
+    flex-shrink: 0;
+    
+    /* Center text di dalam badge */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Trik agar bulatnya proporsional (min-width dan height opsional tapi disarankan) */
+    min-width: 40px; 
+    height: 40px; 
+}
+
+/* 3.2 & 3.3 Teks List */
+.list-text h3 {
+    font-size: 20px;        /* Spec No. 3.2 */
+    font-weight: 700;       /* Bold */
+    color: var(--text-dark);
+    margin-bottom: 4px;     /* Spec No. 3.4 (Gap judul ke deskripsi) */
+    line-height: 1.2;
+}
+
+.list-text p {
+    font-size: 20px;        /* Spec No. 3.3 */
+    font-weight: 400;       /* Regular */
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 0;       /* Reset margin bawah paragraf */
+}
+
+/* --- TESTIMONIALS SECTION --- */
+
+.testimonials-section {
+    padding: 100px 0;
+    background-color: var(--bg-color);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 60px;
+    color: var(--text-dark);
+}
+
+/* 1. Layout Grid 2x2 */
+.testimonials-grid {
+    display: flex;
+    flex-wrap: wrap;        /* Agar turun ke bawah kalau layar sempit */
+    gap: 43px;              /* Spec No. 6 & 7: Gap horizontal & vertikal 43 */
+    justify-content: center;
+}
+
+/* 2. Style Card Per Item */
+.testimonial-card {
+    background-color: #FFFFFF;
+    
+    /* --- HAPUS BAGIAN INI: --- */
+    /* width: 100%; */
+    /* max-width: 578px; */
+    
+    /* --- GANTI DENGAN INI (Rumus 2 Kolom): --- */
+    /* Rumus: (100% dibagi 2) dikurangi (Gap 43px dibagi 2) */
+    /* 43px / 2 = 21.5px */
+    width: calc(50% - 21.5px);
+    
+    /* Pastikan flex-grow mati agar dia tidak memaksa melebar */
+    flex-grow: 0;
+    flex-shrink: 0; 
+    
+    /* Sisa settingan tetap sama */
+    height: 255px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.25);
+    
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+/* --- BAGIAN ATAS KARTU (Quote) --- */
+.card-top {
+    /* Spec No. 5: Gap antara bagian atas ke bagian bawah 50px */
+    margin-bottom: 50px; 
+    
+    /* Layout Icon dan Teks */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;        /* Spec No. 2.3.1: Gap Icon ke Teks 20 */
+}
+
+.quote-icon {
+    width: 24px;      /* Ukuran wajar icon quote */
+    height: auto;
+}
+
+.review-text {
+    font-size: 16px;  /* Sesuai standar body text */
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin: 0;        /* Reset margin p */
+}
+
+
+/* --- BAGIAN BAWAH KARTU (Profil & Rating) --- */
+.card-bottom {
+    display: flex;
+    justify-content: space-between; /* Kiri Profil, Kanan Bintang */
+    align-items: center;            /* Tengah vertikal */
+    margin-top: auto;               /* Memaksa bagian ini nempel di bawah */
+}
+
+/* 3. Profil Customer */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 22px;        /* Spec No. 3.2.2: Gap foto ke teks 22 */
+}
+
+/* 3.1 Foto Profil */
+.profile-img {
+    width: 60px;      /* Spec No. 3.1 */
+    height: 60px;     /* Spec No. 3.1 */
+    border-radius: 100px; /* Bulat sempurna */
+    object-fit: cover;
+}
+
+/* 3.2 Teks Nama & Job */
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;         /* Spec No. 3.2.1: Gap Nama ke Job 1 */
+}
+
+.profile-text h4 {
+    font-size: 16px;
+    font-weight: 600; /* Semibold */
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.profile-text span {
+    font-size: 16px;
+    font-weight: 200; /* Extralight */
+    color: var(--text-dark);
+}
+
+/* 4. Kolom Review Bintang */
+.rating-badge {
+    background-color: var(--primary-color); /* Spec No. 4 */
+    width: 110px;     /* Spec No. 4 */
+    height: 43px;     /* Spec No. 4 */
+    border-radius: 50px; /* Biar bentuk pill seperti gambar */
+    
+    /* Padding: Horizontal 15, Vertikal 4 */
+    padding: 4px 15px; 
+    
+    /* Layout isi badge */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;         /* Spec No. 4.3: Gap angka ke bintang 2 */
+}
+
+/* 4.1 Angka Review */
+.rating-score {
+    font-size: 24px;  /* Spec No. 4.1 */
+    font-weight: 600; /* Semibold */
+    color: var(--text-light); /* Putih */
+    line-height: 1;   /* Biar tidak naik turun */
+}
+
+/* 4.2 Image Bintang */
+.star-icon {
+    width: 20px;      /* Spec No. 4.2 */
+    height: 20px;     /* Spec No. 4.2 */
+    display: block;
+}
+
+
+/* =========================================
+   FIX: RESPONSIVE TESTIMONIALS & CARD
+   ========================================= */
+
+/* 1. Ubah tinggi fix jadi fleksibel agar konten tidak tumpah */
+.testimonial-card {
+    height: auto !important; /* Paksa auto biar ngikutin isi teks */
+    min-height: 255px;       /* Tetap jaga tinggi minimum biar rapi */
+}
+
+/* 2. Media Query untuk Layar Tablet & Mobile (<= 1024px) */
+@media (max-width: 1024px) {
+    
+    /* Ubah Grid jadi 1 Kolom (Full Width) */
+    .testimonial-card {
+        width: 100%; /* Kartu memenuhi lebar layar */
+        max-width: 100%;
+    }
+
+    /* Atur ulang gap/jarak */
+    .testimonials-grid {
+        gap: 30px; 
+    }
+
+    /* Pastikan bagian bawah (Profile + Rating) bisa turun baris jika sangat sempit */
+    .card-bottom {
+        flex-wrap: wrap; 
+        gap: 15px; 
+    }
+}
+
+
+/* --- ABOUT PAGE STYLING --- */
+
+.about-hero {
+    /* 1. Dimensi Hero About */
+    width: 100%;
+    height: 321px; /* Spec No. 1 */
+    
+    /* 1.1 Background Image + Layer Hitam 50% */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('../Aset/image/hero_about.jpg'); /* Pastikan gambar ini ada */
+    
+    background-size: cover;
+    background-position: center;
+    
+    /* Flexbox untuk menengahkan teks */
+    display: flex;
+    justify-content: center; /* Tengah Horizontal */
+    align-items: center;     /* Tengah Vertikal */
+    text-align: center;
+    
+    /* Supaya z-index navbar tetap aman */
+    position: relative;
+}
+
+/* 2. Styling Teks Hero About */
+.about-hero h1 {
+    font-size: 48px;         /* Spec No. 2 */
+    font-weight: 700;        /* Bold */
+    color: var(--text-light); /* Putih */
+    margin: 0;               /* Reset margin bawaan */
+    line-height: 1.2;
+    padding: 0 20px;         /* Jaga-jaga biar gak mentok pinggir di HP */
+}
+
+/* --- ABOUT CONTENT SECTION --- */
+
+.about-content-section {
+    padding: 100px 0;      /* Memberi ruang atas-bawah umum */
+    background-color: var(--bg-color);
+}
+
+/* Row Wrapper (Baris per Section) */
+.about-row {
+    display: flex;
+    align-items: center;   /* Vertikal tengah */
+    justify-content: space-between; /* Agar gambar & teks mojok kiri-kanan */
+    
+    /* Gap antara Teks dan Gambar */
+    gap: 60px;             /* Spec A.3.2 & B.2.3 */
+    
+    /* Jarak antara Section Story ke Philosophy */
+    margin-bottom: 120px; 
+}
+
+/* Khusus baris Philosophy (Baris ke-2) */
+.philosophy-row {
+    margin-bottom: 0;      /* Hilangkan margin bawah karena sudah terakhir */
+}
+
+/* --- TEXT STYLING --- */
+.about-text {
+    flex: 1;               /* Mengambil sisa ruang agar responsif */
+    display: flex;
+    flex-direction: column;
+    
+    /* Gap antara Judul dan Paragraf */
+    gap: 52px;             /* Spec A.2.1 & B.2.2 */
+    
+    align-items: flex-start; /* Rata Kiri Semua */
+    text-align: left;
+}
+
+.about-text h2 {
+    font-size: 48px;       /* Spec A.1 & B.1 */
+    font-weight: 700;      /* Bold */
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.about-text p {
+    font-size: 24px;       /* Spec A.2 & B.2.1 (Regular 24) */
+    font-weight: 400;      /* Regular */
+    color: var(--text-dark);
+    line-height: 1.6;      /* Jarak antar baris biar enak dibaca */
+    margin: 0;
+}
+
+/* --- IMAGE STYLING --- */
+.about-image img {
+    /* Ukuran Fix */
+    width: 400px;          /* Spec A.3.1 & B.1.1 */
+    height: 500px;         /* Spec A.3.1 & B.1.1 */
+    
+    object-fit: cover;     /* Agar gambar tidak gepeng */
+    border-radius: 20px;   /* Spec A.3.1 & B.1.1 */
+    
+    display: block;
+    
+    /* Bayangan halus (Opsional, biar makin pop-up kayak desain modern) */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+}
+
+
+
+
+/* --- BLOG PAGE STYLING --- */
+
+.blog-section {
+    padding: 80px 0 120px 0; /* Jarak atas bawah lega */
+    background-color: var(--bg-color);
+}
+
+/* 1. Judul Halaman 'Blog & Tips' */
+.blog-page-title {
+    font-size: 64px;       /* Spec No. 1.1 */
+    font-weight: 700;      /* Bold */
+    text-align: center;    /* Tengah */
+    color: var(--text-dark);
+    margin-bottom: 80px;   /* Jarak dari judul ke kartu artikel */
+}
+
+/* Container List Blog (Flex Column buat jaga-jaga kalau artikel banyak) */
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* Biar kartu ada di tengah layar */
+    gap: 60px;             /* Jarak antar kartu kalau ada lebih dari 1 */
+}
+
+/* 3. Card Artikel Style */
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none; /* Hilangkan garis bawah link */
+    
+    /* 3. Ukuran Card */
+    width: 100%;
+    max-width: 1140px;     /* Spec No. 3 */
+    /* Height auto saja biar fleksibel kalau teks panjang, tapi minimal sesuai spec */
+    min-height: 656px;     
+    
+    /* Background Putih */
+    /* Note: Di gambar referensi terlihat putih solid. Kalau opacity 12% nanti transparan. 
+       Saya pakai Putih Solid agar tulisan terbaca jelas */
+    background-color: #FFFFFF; 
+    
+    /* Border Radius 50 (Semua sisi) */
+    border-radius: 50px;   /* Spec No. 3 */
+    
+    /* 3.1 Drop Shadow (x0 y0 blur14, opacity 15%) */
+    box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.15);
+    
+    /* 7. Efek Hover Upscale */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: scale(1.02); /* Upscale dikit (2%) biar smooth */
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.2); /* Shadow makin tebal pas hover */
+}
+
+/* 4. Main Image Styling */
+.blog-image-wrapper {
+    width: 100%;
+    height: 407px;         /* Spec No. 4 */
+    overflow: hidden;      /* Biar gambar ga keluar dari border radius */
+    
+    /* Border Radius Atas Kiri & Kanan 50px */
+    border-top-left-radius: 50px;  /* Spec No. 4 */
+    border-top-right-radius: 50px; /* Spec No. 4 */
+}
+
+.blog-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* Gambar penuh tanpa gepeng */
+}
+
+/* 5. Konten Teks (Judul, Isi, Read More) */
+.blog-content {
+    /* 6. Padding/Gap ke ujung Card */
+    /* Kita pakai padding container biar teks gak nempel pinggir */
+    padding: 40px 50px; 
+    
+    /* Layout Flex Column */
+    display: flex;
+    flex-direction: column;
+    
+    /* 5.3.3 Jarak Konten ke Image di atasnya */
+    /* Karena sudah ada padding-top 40px, margin-top bisa 0 atau disesuaikan */
+    /* Kalau mau persis gap 23px dari batas gambar: */
+    /* Kita atur padding-top wrapper jadi 23px */
+    padding-top: 23px; 
+}
+
+/* Container Judul & Isi */
+.text-group {
+    display: flex;
+    flex-direction: column;
+    /* 5.3.1 Gap antara Judul dan Isi 22px */
+    gap: 22px; 
+    margin-bottom: 10px; /* 5.3.2 Jarak ke Read More */
+}
+
+/* 5.1 Teks Judul Artikel */
+.article-title {
+    font-size: 32px;       /* Spec No. 5.1 */
+    font-weight: 600;      /* SemiBold */
+    color: var(--text-dark);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* 5.2 Teks Isi Artikel */
+.article-desc {
+    font-size: 24px;       /* Spec No. 5.2 */
+    font-weight: 400;      /* Regular */
+    color: var(--text-dark);
+    line-height: 1.5;
+    opacity: 0.8;          /* Sedikit abu biar beda sama judul */
+    margin: 0;
+}
+
+/* 5.3 Navigasi Read More */
+.read-more-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Rata Kanan */
+    margin-top: auto;      /* Dorong ke paling bawah jika ada sisa ruang */
+}
+
+.read-more-btn {
+    font-size: 24px;       /* Spec No. 5.3 */
+    font-weight: 600;      /* SemiBold */
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.blog-card:hover .read-more-btn {
+    color: var(--primary-color); /* Pas card dihover, tulisan jadi hijau */
+}
+
+
+/* --- SUPPORT BLOG GRID (3 Cards) --- */
+
+.support-blog-grid {
+    display: flex;
+    justify-content: center; /* Posisi di tengah */
+    flex-wrap: wrap;         /* Agar responsif turun ke bawah jika layar sempit */
+    gap: 57px;               /* Spec No. 1: Gap antar card 57px */
+    margin-top: 60px;        /* Jarak dari Main Card besar di atasnya */
+}
+
+/* 1.1 Style Card Kecil */
+.support-card {
+    /* Dimensi Fix */
+    width: 341px;            /* Spec No. 1.1 */
+    height: 536px;           /* Spec No. 1.1 */
+    
+    background-color: #FFFFFF; /* Putih Solid (Agar tulisan terbaca jelas) */
+    
+    border-radius: 30px;     /* Spec No. 1.1: Corner radius 30 */
+    text-decoration: none;   /* Hilangkan garis link */
+    overflow: hidden;        /* Agar gambar radiusnya ngikut card */
+    
+    /* Spec No. 1.2: Drop Shadow (y=4, blur=14, opacity 15%) */
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.15);
+    
+    display: flex;
+    flex-direction: column;
+    
+    /* 5. Efek Hover Upscale */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-card:hover {
+    transform: scale(1.02); /* Upscale dikit biar interaktif */
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* 2. Image Atas */
+.support-img-wrapper {
+    width: 341px;            /* Spec No. 2 */
+    height: 256px;           /* Spec No. 2 */
+    /* Border radius atas kiri kanan 30 */
+    border-top-left-radius: 30px; 
+    border-top-right-radius: 30px;
+}
+
+.support-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 4.3 Container Teks (Padding/Gap ke ujung card) */
+.support-content {
+    padding: 0 30px;         /* Kiri Kanan 30px biar teks gak nempel pinggir */
+    padding-top: 22px;       /* Spec No. 4.2: Gap ke image di atasnya 22 */
+    padding-bottom: 30px;    /* Padding bawah aman */
+    
+    display: flex;
+    flex-direction: column;
+    height: 100%;            /* Isi sisa tinggi kartu */
+}
+
+/* 3. Teks Judul */
+.support-title {
+    font-size: 20px;         /* Spec No. 3 */
+    font-weight: 600;        /* SemiBold */
+    color: var(--text-dark);
+    line-height: 1.3;
+    
+    /* 4. Gap Dinamis (Judul ke Isi) */
+    /* Kita pakai margin-bottom standar ~20px (mendekati 19px) */
+    /* Ini aman untuk judul 1 baris maupun 2 baris */
+    margin-bottom: 20px;     
+}
+
+/* 3.1 Teks Isi */
+.support-desc {
+    font-size: 16px;         /* Koreksi dari user '6' jadi '16' biar terbaca */
+    font-weight: 400;        /* Regular */
+    color: var(--text-dark);
+    line-height: 1.5;
+    opacity: 0.8;
+    
+    /* 4.1 Gap ke Read More di bawahnya */
+    margin-bottom: 30px;     
+}
+
+/* 3.2 Read More (Footer Teks) */
+.support-footer {
+    margin-top: auto;        /* Trik Flexbox: Dorong ke paling bawah container */
+    text-align: right;       /* Rata Kanan */
+}
+
+.support-read-more {
+    font-size: 16px;         /* Spec No. 3.2 */
+    font-weight: 600;        /* SemiBold */
+    color: var(--text-dark);
+    transition: color 0.2s;
+}
+
+.support-card:hover .support-read-more {
+    color: var(--primary-color); /* Berubah hijau saat card di-hover */
+}
+
+
+
+/* --- CONTACT PAGE STYLING --- */
+
+.contact-section {
+    /* 7. Background Image Full */
+    width: 100%;
+    height: 964px;           /* Spec No. 7 */
+    position: relative;      /* Agar overlay bisa absolut di atasnya */
+    
+    background-image: url('../Aset/image/bg_contact.jpg'); /* Pastikan file ini ada */
+    background-size: cover;
+    background-position: center;
+    
+    /* Flexbox agar konten di tengah vertikal */
+    display: flex;
+    align-items: center;
+}
+
+/* 7. Layer Hitam Opacity 40% */
+.contact-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Hitam 40% */
+    z-index: 1;
+}
+
+/* Container Contact (Flex Kiri-Kanan) */
+.contact-container {
+    position: relative;
+    z-index: 2;
+    
+    display: flex;
+    justify-content: center; /* Tengah secara horizontal */
+    
+    /* REVISI DI SINI: */
+    /* Ubah dari flex-start (rata atas) menjadi center (rata tengah) */
+    align-items: center;     
+    
+    gap: 110px;
+}
+
+/* --- BAGIAN KIRI: INFO KONTAK --- */
+.contact-info {
+    color: var(--text-light); /* Teks Putih semua */
+    max-width: 500px;
+}
+
+/* 1. Header Teks */
+.contact-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;               /* Spec No. 1.3 */
+    margin-bottom: 70px;     /* Spec No. 2.5 (Gap Header ke Detail) */
+}
+
+.contact-header h1 {
+    font-size: 64px;         /* Spec No. 1.1 */
+    font-weight: 700;        /* Bold */
+    line-height: 1.1;
+    margin: 0;
+}
+
+.contact-header p {
+    font-size: 24px;         /* Spec No. 1.2 */
+    font-weight: 400;        /* Regular */
+    margin: 0;
+}
+
+/* 2. Detail List */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;               /* Spec No. 2.4 */
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;     /* Icon dan Teks sejajar tengah */
+    gap: 13px;               /* Spec No. 2.3 */
+}
+
+.contact-icon {
+    width: 24px;             /* Estimasi ukuran icon wajar */
+    height: auto;
+    display: block;
+}
+
+.detail-item p {
+    font-size: 20px;         /* Spec No. 2.2 */
+    font-weight: 400;        /* Regular */
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* --- BAGIAN KANAN: FORM PENGISIAN --- */
+.contact-form-wrapper {
+    /* 3.1 Background Hitam 70% */
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;     /* Spec No. 3.1 */
+    padding: 40px 50px;      /* Padding dalam form agar rapi */
+    color: var(--text-light);
+}
+
+/* 3.2 Teks Pembuka Form */
+.form-title {
+    font-size: 20px;         /* Estimasi dari 'regular 4' (Typo) jadi 20px agar terbaca */
+    font-weight: 400;
+    margin-bottom: 30px;     /* Jarak ke input pertama */
+}
+
+/* 4. Input Group */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                /* Spec No. 4.3 (Label ke Box) */
+    margin-bottom: 30px;     /* Spec No. 4.4 (Jarak antar input) */
+}
+
+.input-group label {
+    font-size: 20px;         /* Spec No. 4.1 */
+    font-weight: 400;        /* Regular */
+}
+
+/* 4.2 Styling Input Box */
+.input-group input, 
+.input-group textarea {
+    width: 537px;            /* Spec No. 4.2 */
+    height: 42px;            /* Spec No. 4.2 */
+    
+    /* Background Primary Color Opacity 50% */
+    /* Trik CSS: Gunakan RGB primary kamu (#005D25 = 0, 93, 37) */
+    background-color: rgba(0, 93, 37, 0.5); 
+    
+    border: 0.5px solid #FFFFFF; /* Spec No. 4.2: Border putih 0.5 */
+    border-radius: 20px;     /* Spec No. 4.2 */
+    
+    /* Styling Teks Input */
+    padding: 0 20px;         /* Padding dalam biar teks ga nempel kiri */
+    color: #FFFFFF;
+    font-family: var(--font-main);
+    font-size: 16px;
+    outline: none;           /* Hilangkan outline biru browser */
+}
+
+/* 4.5 Khusus Message (Textarea) */
+.input-group textarea {
+    height: 90px;            /* Spec No. 4.5 */
+    padding-top: 10px;       /* Biar teks mulai dari atas */
+    resize: none;            /* Matikan fitur tarik ujung browser */
+}
+
+/* 5. Tombol Submit */
+.form-footer {
+    margin-top: 75px;        /* Spec No. 5.6: Jarak dari input terakhir 75 */
+    text-align: right;       /* Tombol di kanan (Sesuai referensi gambar) */
+}
+
+.btn-submit {
+    background-color: var(--accent-color); /* Spec No. 5.2 */
+    color: #FFFFFF;
+    
+    font-size: 20px;         /* Spec No. 5.1 */
+    font-weight: 500;        /* Medium */
+    border: none;
+    cursor: pointer;
+    
+    /* 5.3 Padding 10px Vertikal & Horizontal */
+    padding: 10px 40px;      /* Horizontal saya bikin 40 biar lonjong enak dilihat */
+    
+    border-radius: 50px;     /* Spec No. 5.4 */
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #A34400; /* Efek hover gelap */
+}
+
+
+/* --- TOP PRODUCTS HOMEPAGE --- */
+.top-products-section {
+    padding: 80px 0;
+    background-color: #FFFFFF; /* Putih biar beda dikit sama section atasnya */
+}
+
+
+
+
+
+/* --- PRODUCT PAGE STYLING --- */
+
+.product-hero {
+    /* 1.1 Dimensi Hero Product */
+    width: 100%;
+    height: 310px;           /* Spec No. 1.1 */
+    
+    /* 1.2 Background Image + Layer Hitam 50% */
+    /* Pastikan kamu punya gambar hero khusus produk, misal product-hero.jpg */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('../Aset/image/hero_product.jpg'); 
+    
+    background-size: cover;
+    background-position: center;
+    
+    /* Flexbox untuk menengahkan konten */
+    display: flex;
+    justify-content: center; /* Tengah Horizontal */
+    align-items: center;     /* Tengah Vertikal */
+    text-align: center;
+    
+    position: relative;
+    padding: 0 20px;         /* Padding aman kiri-kanan */
+}
+
+/* Container Teks di dalam Hero (hero-content sudah ada class-nya, kita spesifikkan untuk product) */
+.product-hero .hero-content {
+    display: flex;
+    flex-direction: column;
+    
+    /* 2.2 Gap Judul dan Isi 18px */
+    gap: 18px;               
+}
+
+/* 2. Judul "All Collection Here" */
+.product-hero h1 {
+    font-size: 48px;         /* Spec No. 2 */
+    font-weight: 700;        /* Bold */
+    color: var(--text-light); /* Putih */
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* 2.1 Subjudul "Browse our..." */
+.product-hero p {
+    font-size: 32px;         /* Spec No. 2.1 */
+    font-weight: 200;        /* Extralight */
+    color: var(--text-light); /* Putih */
+    margin: 0;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   PRODUCT CATALOG & FILTER SECTION (FINAL)
+   ========================================= */
+
+.product-catalog-section {
+    padding: 60px 0 100px 0; /* Jarak atas bawah */
+    background-color: var(--bg-color);
+}
+
+/* --- 1. FILTER BAR LAYOUT --- */
+.filter-bar {
+    display: flex;
+    justify-content: flex-start; /* Rata kiri */
+    align-items: center;
+    gap: 20px;               /* Jarak antar tombol (Saya sesuaikan jadi 20px biar rapi) */
+    margin-bottom: 60px;     /* Jarak dari filter ke grid produk */
+    flex-wrap: wrap;         /* Biar aman turun ke bawah kalau layar kecil */
+}
+
+/* --- 2. TOMBOL FILTER (STYLE UTAMA) --- */
+.filter-btn {
+    font-family: var(--font-main);
+    font-size: 16px;         /* Ukuran font standar */
+    font-weight: 500;        /* Medium */
+    padding: 10px 24px;      /* Padding tombol */
+    
+    background-color: #FFFFFF;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;     /* Pill Shape */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Flexbox untuk meratakan Teks dan Panah */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Style Saat Tombol Aktif (Dipanggil oleh JS .active) */
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    /* Border tetap sama warnanya */
+}
+
+/* Hover Effect (Opsional: biar user tau ini tombol) */
+.filter-btn:hover {
+    background-color: #f0fdf4; /* Hijau pudar sangat tipis saat hover (sebelum diklik) */
+    /* Kalau sudah active, hover tidak perlu ganti warna lagi (biasanya dihandle browser) */
+}
+.filter-btn.active:hover {
+    background-color: var(--primary-color); /* Tetap hijau tua */
+}
+
+/* --- 3. LOGIKA DROPDOWN (WRAPPER) --- */
+.dropdown-wrapper {
+    position: relative; /* Wajib: agar menu muncul menempel di tombol ini */
+    display: inline-block;
+}
+
+/* --- 4. ISI MENU DROPDOWN --- */
+.dropdown-content {
+    display: none;           /* Default: Sembunyi */
+    position: absolute;
+    top: 115%;               /* Muncul sedikit di bawah tombol */
+    left: 0;
+    
+    background-color: #FFFFFF;
+    min-width: 220px;        /* Lebar minimum menu */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    z-index: 100;            /* Pastikan di atas layer produk */
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
+
+/* Class .show ini dipanggil JS untuk memunculkan menu */
+.dropdown-content.show {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Link / Item di dalam Dropdown */
+.dropdown-content a {
+    color: var(--text-dark);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    border-bottom: 1px solid #f9f9f9;
+    transition: background-color 0.2s, color 0.2s, padding-left 0.2s;
+}
+
+/* Hapus garis di item terakhir */
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+/* Hover pada Item Dropdown */
+.dropdown-content a:hover {
+    background-color: var(--bg-color); /* Warna background agak gelap dikit */
+    color: var(--primary-color);
+    padding-left: 25px;      /* Efek geser kanan sedikit */
+}
+
+/* --- 5. IKON PANAH --- */
+.arrow {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 0.8;
+    transform: rotate(90deg); /* Panah ke kanan (>) */
+    transition: transform 0.3s ease;
+}
+
+/* Rotasi Panah saat Tombol Aktif */
+.filter-btn.active .arrow {
+    transform: rotate(-90deg); /* Panah jadi menghadap bawah/atas sesuai selera */
+}
+
+/* --- 6. PRODUCT GRID SYSTEM --- */
+.product-grid {
+    display: grid;
+    /* Grid Responsif: Otomatis ngisi kolom, minimal lebar kartu 280px */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 40px;
+    width: 100%;
+}
+
+/* --- 7. ANIMASI MUNCUL --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================
+   PRODUCT CARD STYLING (FIXED 300x465)
+   ========================================= */
+
+/* Update Grid agar kolomnya pas 300px */
+.product-grid {
+    display: grid;
+    /* UPDATE 1: Paksa jadi 4 Kolom rata (1fr 1fr 1fr 1fr) */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; /* Saya kurangi dikit gap-nya biar kartu gak kekecilan */
+    width: 100%;
+    
+    /* UPDATE 2: Hapus justify-items: center */
+    /* justify-items: center; <--- HAPUS INI biar rata kiri */
+}
+
+/* 1. Container Card */
+.product-card {
+    /* UPDATE 3: Ubah width statis jadi 100% mengikuti kolom grid */
+    /* width: 300px; <--- HAPUS INI */
+    width: 100%;     /* GANTI JADI INI */
+    
+    /* Height tetap statis sesuai request */
+    height: 465px;          
+    
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efek naik dikit pas di hover (opsional) */
+}
+
+/* 2. Foto Produk */
+.card-image {
+    width: 100%;       /* Ikut lebar kartu */
+    height: 300px;     /* Tinggi tetap */
+    overflow: hidden;  /* Jaga-jaga */
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 3. Konten Teks Wrapper */
+.card-content {
+    /* Padding kiri kanan agar teks tidak nempel ujung card (Spec No. 4) */
+    padding: 0 20px; 
+    
+    /* Layout Flex untuk ngatur jarak atas bawah */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3.2.2 Gap dari Image ke Kategori (Margin Top di wrapper teks) */
+.text-group {
+    margin-top: 18px; /* Spec 3.2.2 */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;         /* Spec 3.2.1: Gap Kategori ke Nama */
+}
+
+/* 3.1 Teks Kategori */
+.p-category {
+    font-family: var(--font-main);
+    font-weight: 300; /* Light */
+    font-size: 14px;
+    color: #888888;   /* Abu-abu biar beda sama judul */
+}
+
+/* 3.2 Teks Nama Produk */
+.p-name {
+    font-family: var(--font-main);
+    font-weight: 500; /* Medium */
+    font-size: 16px;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.4;
+    
+    /* Trik kalau nama kepanjangan jadi titik-titik (...) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Bagian Bawah: Harga & Tombol */
+.card-bottom {
+    /* Spec 3.3.1: Gap antara nama produk ke harga */
+    margin-top: 28px; 
+    
+    display: flex;
+    justify-content: space-between; /* Harga Kiri, Tombol Kanan */
+    align-items: center;            /* Tengah secara vertikal */
+}
+
+/* 3.3 Teks Harga */
+.p-price {
+    font-family: var(--font-main);
+    font-weight: 700; /* Bold */
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+/* 4. Tombol Add Cart */
+.btn-add {
+    width: 76px;    /* Spec 4.1 */
+    height: 27px;   /* Spec 4.1 */
+    border-radius: 50px;
+    background-color: var(--primary-color);
+    border: none;
+    
+    /* Padding & Text */
+    padding: 3px 10px; /* Spec 4.1 */
+    color: #FFFFFF;
+    font-family: var(--font-main);
+    font-weight: 600;  /* Semibold (Spec 4.2) */
+    font-size: 14px;
+    
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #00451b; /* Warna lebih gelap pas hover */
+}
+
+/* --- TAMBAHAN DI PALING BAWAH CSS --- */
+
+.badge-stok {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #d4a017; /* Ganti kode warna sesuai accent GoCamp */
+    color: white;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    z-index: 5;
+    font-weight: bold; /* Opsional biar teks lebih tebal */
+}
+
+/* --- RESPONSIF (OPSIONAL TAPI PENTING) --- */
+/* Karena kita paksa 4 kolom, di HP bakal gepeng banget. */
+/* Tambahkan ini di paling bawah CSS biar di HP jadi 1 atau 2 kolom */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tablet: 2 Kolom */
+    }
+}
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* HP: 1 Kolom */
+    }
+}
+
+
+
+
+
+/* --- CSS TAMBAHAN UNTUK DETAIL PAGE --- */
+
+/* Utility Hidden */
+.hidden { display: none !important; }
+
+/* Layout Container */
+.detail-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.detail-wrapper {
+  display: flex;
+  gap: 35px;
+  flex-wrap: wrap;
+  align-items: flex-start; 
+}
+
+/* --- BAGIAN KIRI: GAMBAR --- */
+.detail-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1.1 Main Image */
+.main-img-container img {
+  width: 500px; /* 1.1 Width */
+  height: 500px; /* 1.1 Height */
+  object-fit: cover;
+  border-radius: 20px; /* 1.1 Radius */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15); /* 1.1.1 Shadow */
+  margin-bottom: 35px; /* 1.2.5 Gap main image ke container image detail */
+}
+
+/* 1.2 Detail Images Container */
+.thumb-container {
+  display: flex;
+  gap: 25px; /* 1.2.4 Gap antar detail image */
+}
+
+/* 1.2.1 Detail Image Styling */
+.thumb-img {
+  width: 130px; /* 1.2.1 Width */
+  height: 130px; /* 1.2.1 Height */
+  object-fit: cover;
+  border-radius: 15px; /* 1.2.1 Radius */
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); /* 1.2.2 Shadow */
+  border: 3px solid transparent; /* Persiapan border */
+  box-sizing: border-box; /* Agar border tidak menambah ukuran */
+}
+
+/* 1.2.3 Active State (Border Stroke) */
+.thumb-img.active-thumb {
+  border: 3px solid var(--primary-color, #0c3b2e); /* Fallback warna kalau var ngga jalan */
+}
+
+/* --- BAGIAN KANAN: KONTEN --- */
+.detail-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2.1 Nama Produk */
+.d-name {
+  font-weight: 600;
+  font-size: 36px;
+  text-align: left;
+  margin-top: 0; 
+  margin-bottom: 10px;
+  line-height: 1.2; 
+}
+
+/* 2.2 Harga */
+.d-price {
+  font-weight: 400; /* Regular */
+  font-size: 24px;
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+
+/* 2.3 Stok Wrapper */
+.stock-row {
+  display: flex;
+  justify-content: flex-end; /* Rata Kanan */
+  align-items: center;
+  margin-bottom: 17px; /* 3.5 Gap garis ke stok */
+}
+
+/* 2.3.1 Badge Stok Menipis */
+.d-badge {
+  background-color: var(--accent-color, #EAB308); 
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 2px 10px; /* 2.3.1.1 Padding */
+  border-radius: 20px;
+  margin-right: 18px; /* 2.3.1.2 Gap badge ke teks */
+}
+
+/* 2.3 Teks Stok */
+.d-stock {
+  font-weight: 500; /* Medium */
+  font-size: 20px;
+  text-align: right;
+}
+
+/* 3.1 Garis Horizontal */
+.d-divider {
+  width: 100%;
+  height: 0.5px; /* 3.1 Ketebalan */
+  background-color: black;
+  margin-bottom: 24px;
+}
+
+/* 4. Product Description */
+.d-section { margin-bottom: 30px; }
+
+.d-title {
+  font-weight: 500; /* Medium */
+  font-size: 24px; /* 4.1 Size */
+  text-align: left;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.d-desc-text {
+  font-weight: 400; /* Regular */
+  font-size: 16px; /* 4.2 Size */
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* 5 & 6. Dropdown (Accordion) */
+.accordion-wrapper {
+  width: 100%;
+  border: 1px solid var(--primary-color, #0c3b2e);
+  /* REVISI 1: Border Radius 10 */
+  border-radius: 10px; 
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: white; /* Pastikan basic-nya putih */
+}
+
+.accordion-header {
+  height: 67px; /* 5.5.1 Height Closed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+  background: white;
+}
+
+.d-icon {
+  font-weight: 200; /* Extralight */
+  font-size: 32px;
+}
+
+.accordion-body {
+  background-color: white; 
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-wrapper.open .accordion-body {
+  max-height: 500px; /* 5.5.2 Open height adjust content */
+}
+
+.accordion-body ul {
+  padding: 20px 40px;
+  margin: 0;
+  list-style-type: disc;
+}
+
+.accordion-body li {
+  font-weight: 400; /* Regular */
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+
+/* tombol back */
+.btn-back {
+  /* Posisi: Di atas gambar main, kita atur layoutnya di HTML nanti */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* 4.3 Ukuran & Bentuk (Lingkaran) */
+  width: 50px; 
+  height: 50px;
+  border-radius: 100px; 
+  
+  /* 4.2 Warna */
+  background-color: var(--accent-color, #EAB308); 
+  color: white;
+  border: none;
+  
+  /* 4.1 Font */
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1; /* Biar vertikal align pas */
+  
+  /* 4.4 Shadow */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  
+  cursor: pointer;
+  margin-bottom: 20px; /* Jarak ke gambar */
+  transition: transform 0.2s;
+}
+
+.btn-back:hover {
+  transform: scale(1.1); /* Efek kecil pas hover biar interaktif */
+}
+
+
+
+/* 7. Tombol Add to Cart */
+.d-btn-add {
+  /* Style lama tetap ada ... */
+  margin-top: 42px;
+  width: 100%;
+  height: 55px;
+  background-color: var(--primary-color, #0c3b2e);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px 10px;
+  cursor: pointer;
+  
+  /* REVISI 5.1 Shadow */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* REVISI 5: Hover Gelap */
+.d-btn-add:hover {
+  /* Menggelapkan warna background sebesar 15% */
+  filter: brightness(0.85); 
+}
+
+/* Responsif Mobile */
+@media (max-width: 900px) {
+  .detail-wrapper { flex-direction: column; align-items: center; }
+  .main-img-container img { width: 100%; height: auto; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- CART SIDEBAR STYLING --- */
+
+/* Overlay Gelap Belakang */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Gelap transparan */
+    z-index: 9998; /* Di bawah sidebar */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar Utama (40% Lebar Layar) */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -50%; /* Sembunyi di kanan layar */
+    width: 40%;
+    height: 100vh; /* Full Height */
+    background-color: white;
+    z-index: 9999; /* Paling atas */
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+}
+
+/* State Aktif (Muncul) */
+.cart-open .cart-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+.cart-open .cart-sidebar {
+    right: 0; /* Geser masuk */
+}
+
+/* 2. Header (Primary Color, Height 100) */
+.cart-header {
+    height: 100px;
+    background-color: var(--primary-color, #0c3b2e);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px; /* Gap kiri kanan */
+    color: white;
+    flex-shrink: 0; /* Header gak boleh mengecil */
+}
+
+.cart-header h2 {
+    font-weight: 600; /* Semibold */
+    font-size: 36px;
+    margin: 0;
+}
+
+/* 3.1 Icon Close (50x50 area klik) */
+.close-cart {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 4. Body (Scrollable Area) */
+.cart-body {
+    flex: 1; /* Isi sisa ruang */
+    overflow-y: auto; /* Scroll jika item banyak */
+    padding: 30px;
+}
+
+/* 4. Item Produk */
+.cart-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+/* 4.1 Gambar (210x210) */
+.cart-item img.item-img {
+    width: 210px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px; /* Opsional: Biar manis */
+}
+
+.cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 4.2 Nama Produk */
+.cart-item-title {
+    font-weight: 500; /* Medium */
+    font-size: 24px;
+    margin-bottom: 14px; /* 4.3.1 Gap ke harga */
+    color: #333;
+}
+
+/* 4.3 Harga */
+.cart-item-price {
+    font-weight: 700; /* Bold */
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* 5. Controls (Qty & Trash) */
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* 5.4.1 Gap ke sampah */
+}
+
+/* Wrapper Tombol Qty */
+.qty-wrapper {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid #999; /* 5. Border Secondary 0.5 */
+    border-radius: 50px; /* Biar ujungnya bulat total */
+    overflow: hidden; /* Biar border radius kepake */
+    background: white;
+}
+
+/* 5.1 & 5.3 Tombol - dan + */
+.qty-btn {
+    width: 34px;
+    height: 32px;
+    background: white;
+    border: none;
+    font-weight: 600; /* Semibold 16 */
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.qty-btn:hover { background: #f0f0f0; }
+
+/* 5.2 Angka Qty */
+.qty-val {
+    width: 58px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    border-left: 0.5px solid #ddd;
+    border-right: 0.5px solid #ddd;
+}
+
+/* 5.4 Icon Sampah */
+.trash-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+.trash-btn img {
+    width: 25px;
+    height: 25px;
+}
+
+/* 6. Footer Cart (Fixed Bottom) */
+.cart-footer {
+    height: 220px;
+    background-color: white;
+    border-top: 0.5px solid black; /* 6.1 Stroke atas */
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    position: relative; 
+    z-index: 10;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 6.2 Label Total */
+.total-label {
+    font-weight: 500; /* Medium 20 */
+    font-size: 20px;
+    color: #333;
+}
+
+/* 6.3 Nilai Total */
+.total-value {
+    font-weight: 600; /* Semibold 32 */
+    font-size: 32px;
+    color: #000;
+}
+
+/* 6.4 Tombol Checkout */
+.btn-checkout {
+    width: 100%;
+    background-color: var(--accent-color, #EAB308);
+    color: white;
+    font-weight: 500; /* Medium 20 */
+    font-size: 20px;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.btn-checkout:hover { opacity: 0.9; }
+
+/* Responsif Mobile (Biar ngga aneh di HP) */
+@media (max-width: 768px) {
+    .cart-sidebar { width: 85%; } /* Di HP lebarin jadi 85% */
+    .cart-item img.item-img { width: 100px; height: 100px; } /* Kecilin gambar di HP */
+    .cart-item-title { font-size: 16px; }
+    .cart-item-price { font-size: 16px; }
+    .cart-header h2 { font-size: 24px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- CHECKOUT PAGE STYLING (REVISI) --- */
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 80px;
+    gap: 60px; /* Tambah gap biar lega */
+    max-width: 1280px; /* Lebarkan container utama sedikit */
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* KIRI: FORM (Tetap) */
+.checkout-left {
+    flex: 1; 
+    max-width: 600px; 
+}
+
+.checkout-header { margin-bottom: 40px; }
+.checkout-header h1 { font-weight: 600; font-size: 32px; margin-bottom: 12px; }
+.checkout-header p { font-weight: 400; font-size: 16px; color: #555; }
+
+/* Input Form Styling */
+.form-group { margin-bottom: 30px; display: flex; flex-direction: column; }
+.form-group label { font-weight: 600; font-size: 18px; margin-bottom: 8px; }
+
+.c-input {
+    width: 100%; /* Full width container kiri */
+    height: 50px;
+    border-radius: 20px;
+    border: 0.5px solid #333;
+    padding: 0 20px;
+    font-size: 16px;
+    font-family: var(--font-main);
+}
+.c-textarea { height: 125px; padding-top: 15px; resize: none; }
+
+
+/* KANAN: SUMMARY (REVISI LEBAR) */
+.checkout-right {
+    flex: 1; /* Biar ngisi sisa ruang */
+    max-width: 650px; /* REVISI: Lebarkan max-width (sebelumnya 587px) */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Box Umum */
+.order-box {
+    width: 100%;
+    border: 0.5px solid #333;
+    border-radius: 10px;
+    padding: 25px; /* Padding lebih lega */
+}
+
+/* REVISI: ITEM LIST */
+.c-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee; /* Opsional: garis pemisah antar item */
+}
+.c-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.c-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.c-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Biar nama di atas, qty di bawah */
+    height: 90px; /* Samain tinggi gambar */
+}
+
+.c-item-name {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* REVISI: Wrapper Qty & Harga Sejajar */
+.c-item-row-bottom {
+    display: flex;
+    justify-content: space-between; /* Qty kiri, Harga kanan */
+    align-items: center;
+    width: 100%;
+}
+
+.c-item-qty {
+    font-weight: 400;
+    font-size: 16px;
+    color: #555;
+}
+
+.c-item-total {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+
+/* Subtotal Box */
+.subtotal-box {
+    /* Hapus height fixed biar fleksibel */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 18px;
+}
+.accent-text { color: var(--accent-color); }
+.small-note { font-size: 14px; font-weight: 600; }
+
+
+/* REVISI: NOTES BOX */
+.notes-box {
+    width: 100%;
+    /* HAPUS height: 218px; agar tinggi otomatis mengikuti teks */
+    min-height: 100px; 
+    background-color: #fff9e3;
+    border: 1px solid var(--accent-color);
+    padding: 25px; /* Padding lebih besar */
+    border-radius: 10px;
+}
+
+.notes-box h3 {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.notes-box ol {
+    padding-left: 20px;
+    margin: 0;
+}
+.notes-box li {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 1.6; /* Spasi antar baris lebih lega */
+}
+
+/* Tombol Submit */
+.btn-submit-order {
+    width: 100%;
+    height: 55px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+.btn-submit-order:hover { filter: brightness(0.9); }
+
+/* Responsif Mobile */
+@media (max-width: 900px) {
+    .checkout-container { flex-direction: column; }
+    .checkout-left, .checkout-right { max-width: 100%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- POPUP SUKSES STYLING (FIX) --- */
+
+/* 1. Overlay Redup (Full Screen) */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Hitam transparan */
+    display: flex; /* Flexbox buat nengahin konten */
+    justify-content: center; /* Tengah Horizontal */
+    align-items: center; /* Tengah Vertikal */
+    z-index: 10000; /* Paling atas di atas segalanya */
+    
+    /* Default hidden */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+/* Class helper untuk memunculkan (di-toggle lewat JS) */
+.popup-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 2. Kotak Putih Pop-up */
+.success-popup {
+    width: 855px;
+    height: 475px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Isi konten di tengah vertikal */
+    text-align: center;
+    padding: 40px;
+    position: relative; /* Biar aman */
+}
+
+/* 3. Animasi Ceklis */
+.anim-check {
+    width: 140px;
+    height: auto; 
+    margin-bottom: 5px; /* Gap ke judul */
+}
+
+/* 4. Teks Judul */
+.pop-title {
+    font-weight: 400; /* Regular 16 */
+    font-size: 16px;
+    margin-bottom: 40px; /* Gap ke ID */
+    color: #333;
+}
+
+/* 5. Teks Order ID */
+.pop-id {
+    font-weight: 700; /* Bold 16 */
+    font-size: 16px;
+    margin-bottom: 45px; /* Gap ke deskripsi */
+    color: #000;
+}
+
+/* 6. Deskripsi */
+.pop-desc {
+    font-weight: 500; /* Medium 16 */
+    font-size: 16px;
+    color: #555;
+    max-width: 600px; /* Biar ga terlalu lebar */
+    margin-bottom: 45px; /* Gap ke tombol OK */
+    line-height: 1.5;
+}
+
+/* 7. Tombol OK */
+.btn-ok {
+    width: 119px;
+    height: 34px;
+    background-color: var(--primary-color, #0c3b2e); /* Warna Hijau Utama */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 400; /* Regular 16 */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-ok:hover {
+    filter: brightness(0.9);
+}
+
+/* Responsif Mobile (Biar ga kepotong di HP) */
+@media (max-width: 900px) {
+    .success-popup {
+        width: 90%;
+        height: auto; /* Tinggi otomatis */
+        padding: 30px;
+    }
+    .anim-check { width: 100px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- FOOTER SECTION STYLING --- */
+
+/* --- FOOTER SECTION STYLING (REVISI FINAL) --- */
+
+.footer-section {
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 400px;
+    color: var(--text-light);
+    
+    /* Flex Vertical untuk menengahkan konten secara vertikal */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Container Footer */
+/* Menggunakan .container global agar padding kiri-kanan konsisten (ngga nempel ujung layar) */
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+/* --- 1. BAGIAN ATAS (KOLOM-KOLOM) --- */
+.footer-top {
+    display: flex;
+    align-items: flex-start; /* Rata atas */
+    width: 100%;
+    
+    /* LOGIKA LAYOUT BARU (REVISI NO. 2): */
+    /* Gap ini mengatur jarak antar kolom Shop, Company, dan Location agar sama */
+    gap: 80px; 
+}
+
+/* Kolom 1: Brand (KIRI) */
+.brand-col {
+    width: 260px; /* Lebar area teks deskripsi */
+    
+    /* KUNCI REVISI NO. 1 & 2: */
+    /* margin-right: auto akan mendorong semua elemen di sebelahnya (Shop, dll) */
+    /* mentok ke sisi KANAN container */
+    margin-right: auto; 
+}
+
+/* Kolom Kanan (Shop, Company, Location) */
+/* Kita pastikan tidak ada margin aneh, murni pakai gap dari parent */
+.shop-col, .company-col, .location-col {
+    min-width: 120px; /* Lebar minimal biar rapi */
+}
+
+/* Khusus Location biar alamatnya turun baris rapi */
+.location-col {
+    max-width: 250px; 
+}
+
+/* --- Styling Konten (Font & Gambar) --- */
+.footer-logo img {
+    height: 60px;
+    width: auto;
+    margin-bottom: 15px; /* Jarak logo ke deskripsi */
+    display: block;
+}
+
+.brand-desc {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.footer-col h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 25px; /* Jarak judul subbab ke isi list */
+    color: var(--text-light);
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px; /* Jarak antar list menu */
+}
+
+.footer-links a, .address-text {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* --- 2. GARIS PEMISAH (REVISI NO. 3 & 4) --- */
+.footer-divider {
+    /* REVISI 3: Full width 100% dari container */
+    /* Karena berada dalam .container yang sudah punya padding, */
+    /* dia otomatis sejajar dengan ujung kiri Logo dan ujung kanan Location */
+    width: 100%; 
+    
+    height: 0.5px;
+    background-color: rgba(255, 255, 255, 0.4); /* Putih transparan */
+    
+    /* REVISI 4: Menambah jarak vertikal sedikit dari sebelumnya */
+    margin-top: 50px;    /* Jarak ke kolom atas */
+    margin-bottom: 35px; /* Jarak ke copyright bawah */
+}
+
+/* --- 3. BAGIAN BAWAH (COPYRIGHT) --- */
+.footer-bottom {
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+
+/* =======================================================
+   LAPTOP RESPONSIVE FIX (Max-Width 1440px)
+   Mengatasi tampilan yang "kegedean" di layar laptop
+   ======================================================= */
+
+@media (max-width: 1440px) {
+
+    /* 1. KECILKAN CONTAINER & FONT UTAMA */
+    .container {
+        max-width: 1100px; /* Kecilkan lebar konten biar lebih rapi */
+        padding: 0 30px;
+    }
+    
+    /* Global Typography Scaling */
+    /* Kita timpa ukuran font judul yang besar-besar */
+    .hero-content h1, 
+    .blog-page-title, 
+    .contact-header h1,
+    .section-title,
+    .categories-header h2,
+    .why-header h2,
+    .about-text h2,
+    .product-hero h1 {
+        font-size: 36px !important; /* Turun drastis dari 64px/48px */
+    }
+
+    .hero-content p, 
+    .categories-header p,
+    .product-hero p,
+    .contact-header p,
+    .about-text p {
+        font-size: 18px !important; /* Turun dari 32px/24px ke standar baca */
+        margin-bottom: 25px;
+    }
+
+    /* 2. HERO SECTION (HOME & PRODUCT) */
+    .hero-section {
+        height: 450px !important; /* Kurangi tinggi dari 622px */
+        margin-bottom: 40px;
+    }
+    .product-hero, .about-hero {
+        height: 220px !important; /* Kurangi tinggi header halaman lain */
+    }
+
+    /* 3. TOMBOL & NAVIGASI */
+    .btn-search {
+        font-size: 16px;
+        padding: 8px 25px;
+    }
+    .nav-menu {
+        gap: 25px; /* Rapatkan menu navbar */
+    }
+    .nav-link {
+        font-size: 14px;
+    }
+    .logo img {
+        width: 80px;
+        height: 85px;
+    }
+    .navbar {
+        height: 65px; /* Navbar lebih tipis */
+    }
+    body {
+        padding-top: 65px; /* Sesuaikan padding body */
+    }
+
+    /* 4. BAGIAN KATEGORI (HOME) */
+    .category-card {
+        height: 295px; /* Kartu lebih pendek */
+        max-width: 245px;
+    }
+    .card-text {
+        font-size: 18px;
+        bottom: 20px;
+    }
+
+    /* 5. BAGIAN WHY CHOOSE US (HOME) */
+    .why-choose-us, .about-content-section, .testimonials-section {
+        padding: 50px 0 !important; /* Kurangi jarak atas-bawah yang tadinya 100px */
+    }
+    
+    .why-container {
+        gap: 60px; /* Rapatkan jarak gambar dan teks */
+    }
+    
+    .why-image img {
+        width: 365px !important; /* Kecilkan gambar orang camping */
+        height: auto;
+    }
+    
+    .number-badge {
+        width: 30px; height: 30px; min-width: 30px; font-size: 16px; /* Badge nomor lebih kecil */
+    }
+    
+    .list-text h3 { font-size: 18px; }
+    .list-text p { font-size: 16px; }
+
+    /* 6. PRODUCT CARDS & GRID */
+    .product-grid {
+        gap: 20px; /* Rapatkan jarak antar kartu produk */
+    }
+    
+    .product-card {
+        height: 400px; /* Pendekkan kartu produk */
+    }
+    
+    .card-image {
+        height: 240px; /* Pendekkan area gambar produk */
+    }
+    
+    .p-name { font-size: 15px; }
+    .p-price { font-size: 15px; }
+
+    /* 7. HALAMAN BLOG */
+    .blog-card {
+        min-height: auto; /* Biarkan tinggi otomatis */
+        border-radius: 30px;
+    }
+    .blog-image-wrapper {
+        height: 280px; /* Gambar blog utama lebih pendek */
+    }
+    .article-title { font-size: 24px; }
+    .article-desc { font-size: 16px; }
+    .blog-content { padding: 30px; }
+
+    .support-card {
+        width: 300px; /* Kecilkan kartu blog pendukung */
+        height: auto;
+    }
+    .support-img-wrapper { height: 200px; }
+
+    /* 8. HALAMAN ABOUT */
+    .about-row {
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+    .about-image img {
+        width: 300px !important; /* Gambar about lebih kecil */
+        height: 380px !important;
+    }
+
+    /* 9. HALAMAN CONTACT */
+    .contact-section {
+        height: 600px !important; /* Contact section tidak perlu setinggi layar penuh */
+    }
+    .contact-container {
+        gap: 50px;
+    }
+    .input-group input, .input-group textarea {
+        width: 100%; /* Input form menyesuaikan container */
+        max-width: 400px;
+    }
+    .contact-info {
+        max-width: 400px;
+    }
+    .detail-item p { font-size: 16px; }
+
+    /* 10. DETAIL PRODUK */
+    .main-img-container img {
+        width: 400px;
+        height: 400px;
+    }
+    .thumb-img {
+        width: 90px;
+        height: 90px;
+    }
+    .d-name { font-size: 28px; }
+    .d-price { font-size: 20px; }
+
+    .contact-section {
+        /* Ubah tinggi fix 964px menjadi otomatis/fleksibel */
+        height: auto !important; 
+        
+        /* Minimal setinggi layar dikurangi navbar biar pas */
+        min-height: calc(100vh - 80px); 
+        
+        /* Tambah padding agar tidak mepet atas-bawah */
+        padding: 60px 0 !important; 
+    }
+
+    .contact-container {
+        gap: 50px !important; /* Rapatkan jarak antara teks kiri dan form kanan */
+        align-items: center !important;
+    }
+
+    /* Bagian Kiri (Teks) */
+    .contact-info {
+        max-width: 45%; /* Batasi lebar teks agar seimbang dengan form */
+    }
+    
+    .contact-header {
+        margin-bottom: 40px !important; /* Kurangi jarak judul ke detail */
+    }
+
+    /* Bagian Kanan (Form) */
+    .contact-form-wrapper {
+        width: 100% !important;
+        max-width: 450px !important; /* Kecilkan lebar form agar manis di laptop */
+        padding: 30px 40px !important; /* Kurangi padding dalam box hitam */
+    }
+
+    .form-title {
+        font-size: 18px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Input & Label */
+    .input-group {
+        margin-bottom: 15px !important; /* Rapatkan jarak antar input */
+    }
+    
+    .input-group label {
+        font-size: 16px !important; /* Kecilkan font label */
+    }
+
+    .input-group input, 
+    .input-group textarea {
+        width: 100% !important; /* Input mengikuti lebar container form */
+        max-width: none !important; /* Hapus paksaan 537px */
+        height: 40px !important;    /* Input lebih pendek */
+        font-size: 14px !important;
+    }
+
+    .input-group textarea {
+        height: 80px !important; /* Textarea lebih pendek */
+        padding-top: 10px !important;
+    }
+
+    /* Tombol Submit */
+    .form-footer {
+        margin-top: 30px !important; /* Tombol naik ke atas */
+    }
+    
+    .btn-submit {
+        font-size: 16px !important;
+        padding: 8px 30px !important;
+    }
+
+    /* 7. HALAMAN BLOG (REVISI LAPTOP) */
+    .blog-section {
+        padding: 50px 0 80px 0 !important; /* Kurangi jarak atas-bawah */
+    }
+
+    .blog-page-title {
+        font-size: 36px !important; /* Kecilkan judul halaman */
+        margin-bottom: 40px !important;
+    }
+
+    /* --- Main Blog Card (Yang Paling Gede) --- */
+    .blog-list {
+        gap: 40px !important;
+    }
+
+    .blog-card {
+        max-width: 800px !important; /* Batasi lebar agar tidak terlalu panjang */
+        min-height: auto !important; /* Hapus tinggi paksa, biarkan menyesuaikan isi */
+        border-radius: 30px !important; /* Radius lebih kecil */
+    }
+
+    .blog-image-wrapper {
+        height: 280px !important; /* Pendekkan gambar utama (dari 407px) */
+        border-top-left-radius: 30px !important;
+        border-top-right-radius: 30px !important;
+    }
+
+    .blog-content {
+        padding: 30px 40px !important; /* Kurangi padding dalam */
+        padding-top: 20px !important;
+    }
+
+    .text-group {
+        gap: 15px !important; /* Rapatkan jarak judul ke deskripsi */
+    }
+
+    .article-title {
+        font-size: 24px !important; /* Kecilkan font judul artikel */
+    }
+
+    .article-desc {
+        font-size: 16px !important; /* Kecilkan deskripsi */
+        line-height: 1.6 !important;
+    }
+
+    .read-more-btn {
+        font-size: 16px !important;
+    }
+
+    /* --- Support Blog Grid (3 Kartu Bawah) --- */
+    .support-blog-grid {
+        margin-top: 50px !important;
+        gap: 30px !important; /* Rapatkan jarak antar kartu */
+    }
+
+    .support-card {
+        width: 245px !important; /* Kecilkan lebar kartu */
+        height: auto !important; /* Tinggi otomatis */
+        min-height: 420px !important; /* Tinggi minimal yang wajar */
+    }
+
+    .support-img-wrapper {
+        width: 100% !important;
+        height: 200px !important; /* Pendekkan gambar (dari 256px) */
+    }
+
+    .support-content {
+        padding: 20px 25px 25px 25px !important;
+    }
+
+    .support-title {
+        font-size: 18px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .support-desc {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .support-read-more {
+        font-size: 14px !important;
+    }
+
+    /* 11. CART SIDEBAR (REVISI LAPTOP COMPACT) */
+    .cart-sidebar {
+        width: 450px !important; /* Ubah dari 40% jadi ukuran fix yang wajar */
+    }
+
+    /* Header Cart */
+    .cart-header {
+        height: 70px !important; /* Header lebih tipis */
+        padding: 0 30px !important;
+    }
+    
+    .cart-header h2 {
+        font-size: 24px !important; /* Judul lebih kecil */
+    }
+    
+    .close-cart {
+        font-size: 30px !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* Body & Item Cart */
+    .cart-body {
+        padding: 20px 30px !important;
+    }
+
+    .cart-item {
+        gap: 20px !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 20px !important;
+    }
+
+    .cart-item img.item-img {
+        /* Pangkas ukuran gambar drastis dari 210px jadi 100px */
+        width: 100px !important; 
+        height: 100px !important;
+    }
+
+    .cart-item-title {
+        font-size: 16px !important; /* Nama produk standar */
+        margin-bottom: 5px !important;
+    }
+
+    .cart-item-price {
+        font-size: 16px !important; /* Harga standar */
+        margin-bottom: 10px !important;
+    }
+
+    /* Tombol Qty & Sampah */
+    .qty-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+    }
+    .qty-val {
+        width: 40px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+    }
+    
+    .trash-btn img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Footer Cart */
+    .cart-footer {
+        height: 180px !important; /* Footer lebih pendek */
+        padding: 25px 30px !important;
+        gap: 15px !important;
+    }
+
+    .total-label { font-size: 18px !important; }
+    .total-value { font-size: 24px !important; }
+    
+    .btn-checkout {
+        font-size: 18px !important;
+        padding: 12px 10px !important;
+    }
+}

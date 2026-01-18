@@ -1,0 +1,674 @@
+/* admin.css */
+
+/* --- GLOBAL --- */
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-main);
+    margin: 0;
+    padding-top: 80px;
+    min-height: 100vh;
+}
+
+/* --- NAVBAR --- */
+.admin-navbar {
+    position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+    background-color: var(--primary-color);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; z-index: 1000;
+}
+.logo-area .admin-logo { width: 80px; height: auto; }
+.admin-title {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    color: var(--text-light); font-weight: 600; font-size: 20px; letter-spacing: 1px;
+}
+.menu-icon { cursor: pointer; }
+.icon-menu-img { width: 35px; height: 35px;}
+
+/* --- SIDEBAR --- */
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5); z-index: 1001; display: none;
+}
+.sidebar-overlay.active { display: block; }
+
+.admin-sidebar {
+    position: fixed; top: 0; right: -20%; width: 20%; height: 100vh;
+    background-color: var(--primary-color); z-index: 1002;
+    padding-top: 100px; transition: right 0.3s ease-in-out;
+    display: flex; flex-direction: column;
+}
+.admin-sidebar.active { right: 0; }
+
+.sidebar-item {
+    color: var(--text-light); font-weight: 600; font-size: 20px; text-decoration: none;
+    padding: 15px 40px; display: block; transition: background 0.2s;
+}
+.sidebar-item:hover, .sidebar-item.active { background-color: rgba(255,255,255,0.1); }
+.sidebar-divider { width: 100%; height: 0.5px; background-color: white; opacity: 0.5; }
+
+/* --- KONTEN UTAMA --- */
+.admin-content { width: 85%; margin: 40px auto; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); }
+
+.admin-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.filter-area { display: flex; gap: 15px; align-items: center; }
+
+.custom-select {
+    /* --- Style Dasar (Tetap) --- */
+    border-radius: 50px; 
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color); 
+    font-weight: 600; 
+    background-color: white; 
+    cursor: pointer; 
+    outline: none; 
+    font-family: var(--font-main);
+
+    /* --- SETTING JARAK BARU --- */
+    /* Padding: Atas 8px, Kanan 30px (buat tempat panah), Bawah 8px, Kiri 15px */
+    padding: 8px 24px 8px 15px; 
+
+    /* --- CUSTOM ARROW (Ganti Panah Bawaan) --- */
+    /* 1. Hilangkan panah default browser yang bikin jarak jauh */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* 2. Masukkan gambar panah SVG (Warna Hijau #005D25 sesuai tema) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23005D25' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    
+    /* 3. Atur posisi panah agar nempel rapi di kanan */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Posisi 10px dari kanan */
+    background-size: 14px; /* Ukuran panah */
+}
+.btn-refresh {
+    padding: 8px 20px; border-radius: 50px; border: none; background-color: var(--primary-color);
+    color: white; font-weight: 600; cursor: pointer; font-family: var(--font-main);
+}
+.btn-refresh:hover { background-color: #00451b; }
+
+.search-area input {
+    padding: 8px 20px; border-radius: 50px; border: 1px solid #ccc; width: 250px; outline: none; font-family: var(--font-main);
+}
+
+/* --- TABEL --- */
+.table-container { width: 100%; }
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.data-table th {
+    background-color: var(--primary-color); color: white;
+    font-weight: 600; font-size: 16px; padding: 15px 20px; text-align: left;
+}
+.th-rounded-left { border-top-left-radius: 10px; }
+.th-rounded-right { border-top-right-radius: 10px; }
+.data-table td {
+    background-color: white; color: black;
+    font-weight: 400; font-size: 16px; padding: 10px 20px; border-bottom: 1px solid #eee;
+}
+.action-btn {
+    color: var(--text-dark); text-decoration: underline; font-weight: 500;
+    cursor: pointer; border: none; background: none; font-size: 14px; padding: 0;
+}
+
+/* Badge Status */
+.badge { padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; display: inline-block; text-transform: capitalize; }
+.badge-pending { background-color: #FFF8E1; color: #EAB308; border: 1px solid #EAB308; }
+.badge-waiting { background-color: #E3F2FD; color: #1976D2; border: 1px solid #1976D2; }
+.badge-paid { background-color: #E8F5E9; color: #2E7D32; border: 1px solid #2E7D32; }
+.badge-declined { background-color: #ffebee; color: #c62828; border: 1px solid #c62828; }
+
+/* --- MODAL POP-UP (REVISI DETAIL VIEW) --- */
+.modal-overlay-custom {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); z-index: 2000;
+    display: none; justify-content: center; align-items: center;
+    backdrop-filter: blur(2px);
+}
+.modal-overlay-custom.active { display: flex; }
+
+.modal-card {
+    background: white; 
+    width: 65%; /* REVISI: Width 65% Layar */
+    max-height: 95vh;
+    border-radius: 30px; padding: 40px; 
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.modal-header { display: flex; justify-content: space-between; margin-bottom: 25px; align-items: center; }
+.modal-title-group { display: flex; align-items: center; gap: 15px; }
+
+/* REVISI FONT HEADER */
+.title-order { font-weight: 500; font-size: 24px; margin: 0; color: black; } /* Medium 24 */
+.text-id { font-weight: 600; font-size: 24px; } /* Semibold 24 */
+
+.badge-modal { 
+    background-color: #EAB308; color: black; font-size: 14px; font-weight: 600;
+    padding: 5px 15px; border-radius: 20px; 
+}
+.close-modal { 
+    background: #666; color: white; border: none; width: 32px; height: 32px; 
+    border-radius: 50%; font-size: 20px; cursor: pointer; 
+}
+
+.modal-body-scroll { overflow-y: auto; padding-right: 10px; flex: 1; }
+
+/* Grid Info Customer */
+.info-grid { 
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; 
+}
+.info-box label { 
+    font-size: 12px; font-weight: 300; color: #888; display: block; margin-bottom: 5px; /* Light 12 */
+    text-transform: uppercase;
+}
+.info-box p { 
+    font-weight: 600; font-size: 16px; margin: 0; color: black; /* Semibold 16 */
+}
+.full-width { grid-column: span 3; margin-top: 10px; }
+
+.modal-divider { border: 0; border-top: 1px solid #ddd; margin: 25px 0; }
+
+/* Items Table Modal */
+.items-title { font-weight: 600; font-size: 20px; margin-bottom: 15px; }
+.modal-table-wrapper { 
+    border-radius: 10px; overflow: hidden; border: 1px solid #eee; margin-bottom: 25px;
+}
+.items-table { width: 100%; border-collapse: collapse; }
+.items-table th { 
+    background: var(--primary-color); color: white; padding: 12px 20px; text-align: left; font-size: 14px; 
+}
+.items-table td { 
+    padding: 12px 20px; border-bottom: 1px solid #eee; 
+    font-size: 14px; font-weight: 500; /* Medium 14 */
+    color: black;
+}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Bottom Section */
+.modal-bottom-section { display: flex; justify-content: space-between; align-items: flex-end; }
+
+/* Calculation Box (Kanan) */
+.calculation-box { width: 350px; text-align: right; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+.shipping-input-group { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* Input hanya angka */
+#m-shipping-input { 
+    width: 100px; border-radius: 20px; border: 1px solid #ccc; padding: 5px 10px; text-align: right; 
+    outline: none; font-weight: 600;
+}
+/* Tombol Count (Orange) */
+.btn-count { 
+    background: var(--accent-color); color: white; border: none; padding: 5px 15px; border-radius: 20px; 
+    cursor: pointer; font-weight: 600; font-size: 12px;
+}
+.total-row { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-top: 10px; }
+
+/* Tombol Send Bill (Hijau) */
+.btn-send-wa { 
+    background: var(--primary-color); color: white; border: none; padding: 10px 25px; 
+    border-radius: 50px; font-weight: 600; font-size: 14px; margin-top: 15px; cursor: pointer; 
+    display: flex; align-items: center; gap: 8px; justify-content: center; width: 100%;
+}
+.btn-send-wa img { width: 20px;}
+
+/* Tombol Actions (Kiri) */
+.action-buttons { display: flex; gap: 15px; }
+.btn-confirm { 
+    background: #0047AB; color: white; border: none; padding: 12px 35px; 
+    border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; /* Semibold 14 */
+}
+.btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
+
+.btn-decline { 
+    background: #C60000; color: white; border: none; padding: 12px 35px; 
+    border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; /* Semibold 14 */
+}
+
+/* Responsif */
+@media (max-width: 900px) {
+    .modal-card { width: 95%; }
+    .modal-bottom-section { flex-direction: column-reverse; gap: 20px; }
+    .calculation-box { width: 100%; }
+    .action-buttons { width: 100%; justify-content: space-between; }
+}
+
+
+
+
+
+
+
+
+/* --- MODAL POP-UP STYLES (REVISI) --- */
+
+.modal-overlay-custom {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); z-index: 2000;
+    display: none; justify-content: center; align-items: center;
+    backdrop-filter: blur(2px);
+}
+.modal-overlay-custom.active { display: flex; }
+
+.modal-card {
+    background: white; 
+    width: 65%; /* Sesuai Request */
+    max-height: 90vh;
+    border-radius: 30px; padding: 40px; 
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+/* Typography Helper Classes (Sesuai Request) */
+.t-light-12 { font-weight: 300; font-size: 12px; color: #888; text-transform: uppercase; }
+.t-medium-14 { font-weight: 500; font-size: 14px; }
+.t-semibold-14 { font-weight: 600; font-size: 14px; }
+.t-semibold-16 { font-weight: 600; font-size: 16px; color: #000; }
+.t-bold-16 { font-weight: 700; font-size: 16px; color: #000; }
+.t-medium-24 { font-weight: 500; font-size: 24px; color: #000; }
+.t-semibold-24 { font-weight: 600; font-size: 24px; color: #000; }
+
+/* Helpers Layout */
+.ms-2 { margin-left: 8px; }
+.ms-3 { margin-left: 16px; }
+
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
+.modal-title-group { display: flex; align-items: center; }
+
+.badge-modal { 
+    background-color: #EAB308; color: black; font-size: 12px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px; vertical-align: middle;
+}
+.close-modal { 
+    background: #666; color: white; border: none; width: 32px; height: 32px; 
+    border-radius: 50%; font-size: 20px; cursor: pointer; 
+}
+
+.modal-body-scroll { overflow-y: auto; padding-right: 10px; flex: 1; }
+
+/* Grid Info */
+/* ... Kode CSS atas tetap sama ... */
+
+/* --- BAGIAN MODAL INFO GRID (UPDATE) --- */
+.info-grid { 
+    display: grid; 
+    /* 3 Kolom proporsional: 
+       - Nama: Flexible
+       - Email: Flexible
+       - Phone: Lebar min 200px agar muat nomor panjang dan alamat di bawahnya pas */
+    grid-template-columns: 1fr 1fr 200px; 
+    gap: 30px; /* Jarak antar kolom diperlebar biar ga mepet */
+    margin-bottom: 20px; 
+}
+
+.info-box label { 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: #888; 
+    display: block; 
+    margin-bottom: 5px; 
+}
+
+.info-box p { 
+    font-weight: 700; 
+    font-size: 16px; 
+    margin: 0; 
+    word-wrap: break-word; /* Biar email panjang turun ke bawah */
+}
+
+/* REVISI ALIGNMENT PHONE */
+.align-right { 
+    text-align: left; /* Isi teks tetap rata kiri */
+    /* Tapi grid-columnnya sudah diatur di parent jadi dia ada di kanan */
+    /* Tambahkan padding-left opsional jika ingin lebih geser */
+    padding-left: 20px; 
+}
+
+/* ALAMAT FULL WIDTH */
+.full-width { 
+    grid-column: 1 / -1; /* Span dari awal sampai akhir */
+    margin-top: 10px; 
+    border-top: 1px solid #f0f0f0; /* Garis pemisah halus opsional */
+    padding-top: 15px;
+}
+
+/* ... Sisa CSS bawah tetap sama ... */
+
+.modal-divider { border: 0; margin: 0; }
+
+/* Items Table */
+.items-title { margin-bottom: 15px; }
+.modal-table-wrapper { 
+    margin-bottom: 20px; border: 1px solid #eee; border-radius: 10px; overflow: hidden; 
+}
+.items-table { width: 100%; border-collapse: collapse; }
+.items-table th { 
+    background: var(--primary-color); color: white; padding: 12px; text-align: left; 
+    font-size: 14px; font-weight: 500; 
+}
+.items-table td { 
+    padding: 12px; border-bottom: 1px solid #eee; 
+    font-size: 14px; font-weight: 500; /* Medium 14 */
+    color: #333;
+}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Bottom Section */
+.modal-bottom-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
+
+.calculation-box { width: 350px; margin-left: auto; text-align: right; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+
+.shipping-input-group { display: flex; gap: 5px; justify-content: flex-end; }
+#m-shipping-input { 
+    width: 100px; border-radius: 5px; border: 1px solid #ccc; padding: 5px; 
+    text-align: right; font-weight: 600;
+}
+.btn-count { 
+    background: var(--accent-color); color: white; border: none; padding: 5px 15px; 
+    border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 12px;
+}
+
+.modal-divider-small { border-top: 1px solid #ddd; margin: 15px 0; }
+.total-row { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-top: 10px; }
+
+.btn-send-wa { 
+    background: var(--primary-color); color: white; border: none; padding: 10px 25px; 
+    border-radius: 50px; margin-top: 15px; cursor: pointer; 
+    display: flex; align-items: center; gap: 8px; justify-content: center; width: 100%;
+}
+.icon-wa-btn { filter: brightness(0) invert(1); width: 18px; }
+
+.action-buttons { display: flex; gap: 15px; }
+.btn-confirm { 
+    background: #0047AB; color: white; border: none; padding: 12px 30px; 
+    border-radius: 50px; cursor: pointer; 
+}
+.btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
+
+.btn-decline { 
+    background: #C60000; color: white; border: none; padding: 12px 30px; 
+    border-radius: 50px; cursor: pointer; 
+}
+
+
+
+
+
+
+
+
+/* ... (Code CSS lama kamu paste di sini) ... */
+
+/* TAMBAHAN UNTUK KOLOM NOTES HISTORY */
+.notes-text {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    white-space: normal; /* Biar text turun ke bawah (wrap) */
+    line-height: 1.4;
+    max-width: 250px; /* Batasi lebar agar tidak terlalu panjang */
+}
+
+/* Badge Status Declined (Merah) */
+.badge-declined {
+    background-color: #FFEBEE;
+    color: #C62828;
+    border: 1px solid #FFCDD2;
+}
+
+
+.stats-grid {
+    display: flex;
+    gap: 20px; /* Jarak antar kartu */
+    width: 100%;
+    margin-bottom: 40px; /* Jarak ke Judul Halaman */
+}
+
+.stat-card {
+    flex: 1; /* Lebar dibagi rata */
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px 25px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    
+    /* Garis Indikator Warna di Kiri */
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px); /* Efek naik dikit pas hover */
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* Warna Indikator */
+.border-today { border-left-color: #007bff; }   /* Biru Laut - Hari ini */
+.border-pending { border-left-color: #EAB308; } /* Kuning - Pending */
+.border-waiting { border-left-color: #1976D2; } /* Biru Tua - Waiting */
+.border-paid { border-left-color: #2E7D32; }    /* Hijau - Paid */
+
+/* Responsif Mobile (Kartu jadi 2 kolom atau 1 kolom) */
+@media (max-width: 768px) {
+    .stats-grid {
+        flex-wrap: wrap;
+    }
+    .stat-card {
+        min-width: 45%;
+    }
+}
+
+/* [BARU] Styling Input Date */
+.custom-date {
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: var(--font-main);
+    outline: none;
+    cursor: pointer;
+}
+
+/* [BARU] Warna Indikator Card History */
+.border-declined { border-left-color: #C62828; } /* Merah */
+.border-filtered { border-left-color: #5D4037; } /* Coklat/Warna lain untuk filter */
+
+/* --- PERBAIKAN TAMPILAN STATUS (REVISI RAPI) --- */
+
+/* 1. Container Status di dalam Tabel */
+.status-cell {
+    display: flex !important;
+    flex-direction: column;   /* Susun vertikal (Atas: Status, Bawah: Warning) */
+    justify-content: center;  /* Posisi tengah secara vertikal */
+    align-items: flex-start;  /* Rata kiri */
+    gap: 8px;                 /* Memberi jarak manis (spasi) antara status dan warning */
+    height: 100%;             /* Mengisi penuh tinggi sel tabel */
+}
+
+/* 2. Badge Status Utama (Pending/Waiting/Paid) */
+.badge {
+    white-space: nowrap;      /* KUNCI: Memaksa teks "Waiting For Payment" tetap sebaris */
+    display: inline-flex;     /* Menggunakan flex agar teks di tengah badge */
+    align-items: center;
+    justify-content: center;
+    height: 30px;             /* Memberi tinggi pasti agar seragam */
+    padding: 0 14px;          /* Padding kiri-kanan */
+    line-height: 1;           /* Reset tinggi baris font */
+    box-sizing: border-box;
+}
+
+/* 3. Badge Warning (>24 Jam) */
+.overdue-badge {
+    margin-top: 0;            /* Hapus margin lama (kita sudah pakai gap di .status-cell) */
+    white-space: nowrap;      /* Teks satu baris */
+    height: 24px;             /* Sedikit lebih kecil dari badge status */
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    background-color: #FFEBEE;
+    color: #D32F2F;
+    border: 1px solid #FFCDD2;
+}
+
+/* =========================================
+   LOGIN PAGE STYLING (CLEAN & MINIMALIST)
+   ========================================= */
+
+/* 1. Reset Body khusus Login */
+body.login-body {
+    padding-top: 0 !important; /* Timpa padding 80px dari style.css utama */
+    margin: 0;
+    height: 100vh;
+    overflow: hidden; /* Tidak ada scroll */
+    position: relative;
+    font-family: var(--font-main);
+}
+
+/* 2. Background Image & Overlay */
+.login-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Gunakan gambar background yang sama dengan contact atau hero */
+    background-image: url('../Aset/image/login.jpg'); 
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.login-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 12, 5, 0.664); /* Hijau Gelap Transparan (Biar beda dikit) */
+    backdrop-filter: blur(0px); /* Efek blur dikit biar estetik */
+    z-index: 2;
+}
+
+/* 3. Container Tengah */
+.login-container {
+    position: relative;
+    z-index: 10; /* Di atas background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* 4. Kartu Login */
+.login-card {
+    background-color: #FFFFFF;
+    width: 100%;
+    max-width: 400px;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0px 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Logo & Judul */
+.login-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.login-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.login-header p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+}
+
+/* Input Password */
+.input-group-login input {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    font-family: var(--font-main);
+    outline: none;
+    text-align: center; /* Teks password di tengah biar unik */
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+
+.input-group-login input:focus {
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 93, 37, 0.1);
+}
+
+/* Error Message */
+.error-text {
+    color: #C62828;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* Tombol Login */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 20px;
+}
+
+.btn-login:hover {
+    background-color: #00451b;
+}
+
+/* Link Kembali */
+.back-link {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+.back-link:hover {
+    color: var(--primary-color);
+}

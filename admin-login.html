@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GoCamp Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/admin.css"> 
+</head>
+<body class="login-body">
+
+    <div class="login-bg">
+        <div class="login-overlay"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            
+            <div class="login-header">
+                <img src="Aset/image/gocamp_logo_green.png" alt="GoCamp Logo" class="login-logo">
+                <h2>Admin Panel</h2>
+                <p>Please enter your passcode to continue</p>
+            </div>
+
+            <form id="login-form">
+                <div class="input-group-login">
+                    <input type="password" id="admin-pass" placeholder="Enter Password" required>
+                </div>
+                
+                <p id="error-msg" class="error-text" style="display:none;">Incorrect password. Please try again.</p>
+
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+
+            <a href="index.html" class="back-link">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const passInput = document.getElementById('admin-pass').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            // PASSWORD HARDCODED (Sesuai Request)
+            if (passInput === '12345678') {
+                // Simpan status login di Session Storage (Hilang saat browser tutup)
+                sessionStorage.setItem('gocamp_admin_logged_in', 'true');
+                
+                // Redirect ke Admin Panel
+                window.location.href = 'admin.html';
+            } else {
+                // Tampilkan Error
+                errorMsg.style.display = 'block';
+                // Animasi getar dikit (opsional)
+                const input = document.getElementById('admin-pass');
+                input.style.border = '1px solid #C62828';
+            }
+        });
+    </script>
+</body>
+</html>

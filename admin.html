@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoCamp Admin Panel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/admin.css"> 
+</head>
+<body>
+
+    <nav class="admin-navbar">
+        <div class="logo-area">
+            <img src="Aset/image/gocamp_logo.png" alt="GoCamp Logo" class="admin-logo">
+        </div>
+        <div class="admin-title">ADMIN PANEL</div>
+        <div class="menu-icon" onclick="toggleSidebar()">
+            <img src="Aset/icon/icon_menu.png" alt="Menu" class="icon-menu-img">
+        </div>
+    </nav>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    
+    <aside id="admin-sidebar" class="admin-sidebar">
+        
+        <div class="sidebar-menu">
+            <a href="#" id="nav-order" class="sidebar-item active" onclick="switchTab('order')">Order</a>
+            <div class="sidebar-divider"></div>
+            <a href="#" id="nav-history" class="sidebar-item" onclick="switchTab('history')">History</a>
+            <div class="sidebar-divider"></div>
+        </div> 
+        <a href="#" class="sidebar-item" onclick="logout()" style="margin-top: auto; margin-bottom: 40px;">
+            Logout
+        </a>
+
+    </aside>
+
+    <main class="admin-content">
+
+        <div class="stats-grid">
+            <div class="stat-card border-today">
+                <span class="stat-label">Orders Today</span>
+                <h3 id="count-today">0</h3>
+            </div>
+            <div class="stat-card border-pending">
+                <span class="stat-label">Total Pending</span>
+                <h3 id="count-pending">0</h3>
+            </div>
+            <div class="stat-card border-waiting">
+                <span class="stat-label">Need Payment</span>
+                <h3 id="count-waiting">0</h3>
+            </div>
+            <div class="stat-card border-paid">
+                <span class="stat-label">Total Paid</span>
+                <h3 id="count-paid">0</h3>
+            </div>
+        </div>
+        
+        <h1 class="page-title" id="page-title">Active Orders</h1>
+
+        <div class="admin-toolbar">
+            <div class="filter-area">
+                <button class="btn-refresh" onclick="fetchOrders()">Refresh Data</button>
+
+                <input type="date" id="date-start" class="custom-date" onchange="applyFilters()" style="display:none;">
+                <span id="date-sep" style="display:none; font-weight:bold;">-</span>
+                <input type="date" id="date-end" class="custom-date" onchange="applyFilters()" style="display:none;">
+
+                <div class="dropdown-wrapper">
+                    <select id="filter-date" class="custom-select" onchange="applyFilters()">
+                        <option value="oldest" selected>From Oldest</option> 
+                        <option value="latest">From Latest</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-wrapper">
+                    <select id="filter-status" class="custom-select" onchange="applyFilters()">
+                        <option value="all">All Status</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="search-area">
+                <input type="text" id="search-input" placeholder="Search Order ID..." onkeyup="applyFilters()">
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="5%" class="th-rounded-left">No</th>
+                        <th width="15%">Tanggal</th>
+                        <th width="20%">Order ID</th>
+                        <th width="25%">Customer Name</th>
+                        <th width="15%">Status</th>
+                        <th width="20%" class="th-rounded-right" id="th-last-col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr><td colspan="6" style="text-align:center; padding: 40px;">Loading data...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <div id="detail-modal" class="modal-overlay-custom">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h2>Order <span id="m-order-id">#LOADING</span></h2>
+                    <span id="m-status-badge" class="badge-modal">Pending</span>
+                </div>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+
+            <div class="modal-body-scroll">
+                <div class="info-grid">
+                    <div class="info-box">
+                        <label>NAME:</label>
+                        <p id="m-name">-</p>
+                    </div>
+                    <div class="info-box">
+                        <label>EMAIL:</label>
+                        <p id="m-email">-</p>
+                    </div>
+                    <div class="info-box align-right">
+                        <label>PHONE:</label>
+                        <p id="m-phone">-</p>
+                    </div>
+                    <div class="info-box full-width">
+                        <label>ADDRESS:</label>
+                        <p id="m-address">-</p>
+                    </div>
+                </div>
+
+                <hr class="modal-divider">
+
+                <h3 class="items-title">Items</h3>
+                <div class="modal-table-wrapper">
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-right">Price</th>
+                                <th class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="m-items-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="modal-bottom-section">
+                    <div class="action-buttons">
+                        <button class="btn-confirm" id="btn-confirm-order" onclick="confirmOrder()" disabled>Confirm</button>
+                        <button class="btn-decline" onclick="declineOrder()">Decline</button>
+                    </div>
+
+                    <div class="calculation-box">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="m-subtotal" class="font-bold">Rp 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping fee</span>
+                            <div class="shipping-input-group">
+                                <input type="number" id="m-shipping-input" placeholder="0">
+                                <button class="btn-count" onclick="calculateTotal()">count</button>
+                            </div>
+                        </div>
+                        <div class="modal-divider-small"></div>
+                        <div class="summary-row total-row">
+                            <span>TOTAL PRICE</span>
+                            <span id="m-total-price">Rp 0</span>
+                        </div>
+                        
+                        <button class="btn-send-wa" onclick="sendBill()">
+                            Send Bills <img src="Aset/icon/icon_whatsapp.png" alt="WA" width="20">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script> 
+</body>
+</html>

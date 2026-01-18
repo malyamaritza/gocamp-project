@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product - GoCamp</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="Aset/image/gocamp_logo.png" alt="GoCamp Logo" width="60" height="66">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="product.html" class="nav-link active">Product</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-icon">
+                <a href="#" id="cart-btn">
+                    <img src="Aset/icon/cart_icon.png" alt="Cart" width="40" height="40">
+                    <span id="cart-badge">0</span>
+                </a>
+            </div>    
+        </div>
+    </nav>
+
+    <header class="product-hero" id="hero-section">
+        <div class="hero-content">
+            <h1>All Collection Here</h1>
+            <p>Browse our curated collection of casual camping essentials</p>
+        </div>
+    </header>
+
+    <section class="product-catalog-section" id="catalog-section">
+        <div class="container">
+            
+            <div class="filter-bar">
+                <button class="filter-btn active" id="btn-all">All</button>
+
+                <div class="dropdown-wrapper">
+                    <button class="filter-btn" id="btn-category">
+                        <span id="cat-label">Categories</span> 
+                        <span class="arrow">&rsaquo;</span>
+                    </button>
+                    <div class="dropdown-content" id="menu-category">
+                        <a href="#">Shelter & Sleep</a>
+                        <a href="#">Camp Kitchen</a>
+                        <a href="#">Lounge & Relax</a>
+                        <a href="#">Lighting & Vibes</a>
+                    </div>
+                </div>
+
+                <div class="dropdown-wrapper">
+                    <button class="filter-btn" id="btn-price">
+                        <span id="price-label">Price</span> 
+                        <span class="arrow">&rsaquo;</span>
+                    </button>
+                    <div class="dropdown-content" id="menu-price">
+                        <a href="#">Highest Price</a>
+                        <a href="#">Lowest Price</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="product-grid" class="product-grid">
+                <p style="text-align:center; width:100%;">Loading products...</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <div id="product-detail-view" class="detail-container hidden">
+        <button class="btn-back" onclick="closeDetail()">&lt;</button>
+        <div class="detail-wrapper">
+            
+            <div class="detail-left">
+
+                <div class="main-img-container">
+                    <img id="d-main-img" src="" alt="Main Product">
+                </div>
+                
+                <div class="thumb-container">
+                    <img id="d-thumb-1" class="thumb-img active-thumb" onclick="switchImage(this)" src="" alt="View 1">
+                    <img id="d-thumb-2" class="thumb-img" onclick="switchImage(this)" src="" alt="View 2">
+                </div>
+            </div>
+
+            <div class="detail-right">
+                
+                <h1 id="d-name" class="d-name">Product Name</h1>
+                <h2 id="d-price" class="d-price">Rp 0</h2>
+                
+                <div class="stock-row">
+                    <div id="d-stock-badge-container"></div> 
+                    <span id="d-stock-text" class="d-stock">Stock : 0</span>
+                </div>
+
+                <div class="d-divider"></div>
+
+                <div class="d-section">
+                    <h3 class="d-title">Product Description</h3>
+                    <p id="d-desc" class="d-desc-text">...</p>
+                </div>
+
+                <div class="accordion-wrapper">
+                    <div class="accordion-header" onclick="toggleAccordion('spec-content', 'spec-icon')">
+                        <span class="d-title">Specification</span>
+                        <span id="spec-icon" class="d-icon">+</span>
+                    </div>
+                    <div id="spec-content" class="accordion-body">
+                        <ul id="d-spec-list"></ul>
+                    </div>
+                </div>
+
+                <div class="accordion-wrapper" style="margin-top: 28px;"> 
+                    <div class="accordion-header" onclick="toggleAccordion('feat-content', 'feat-icon')">
+                        <span class="d-title">Features</span>
+                        <span id="feat-icon" class="d-icon">+</span>
+                    </div>
+                    <div id="feat-content" class="accordion-body">
+                        <ul id="d-feat-list"></ul>
+                    </div>
+                </div>
+
+                <button class="d-btn-add">Add to cart</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer-section">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-col brand-col">
+                    <a href="index.html" class="footer-logo">
+                        <img src="Aset/image/gocamp_logo.png" alt="GoCamp Logo"> 
+                    </a>
+                    <p class="brand-desc">Premium gear for the casual camper. Making the outdoors accessible and beautiful.</p>
+                </div>
+                <div class="footer-col shop-col">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="products.html">Shelter & Sleep</a></li>
+                        <li><a href="products.html">Camp Kitchen</a></li>
+                        <li><a href="products.html">Lounge & Relax</a></li>
+                        <li><a href="products.html">Lighting & Vibes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col company-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col location-col">
+                    <h4>Location</h4>
+                    <p class="address-text">Jl. Abadi, Sukapada, Kota Bandung, 40125</p>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GoCamp. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>

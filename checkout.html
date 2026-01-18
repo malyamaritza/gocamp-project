@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - GoCamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="Aset/image/gocamp_logo.png" alt="GoCamp Logo" width="60" height="66">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="product.html" class="nav-link">Product</a></li>
+                </ul>
+            <div class="nav-icon">
+                </div>    
+        </div>
+    </nav>
+
+    <div class="container checkout-container">
+        
+        <div class="checkout-left">
+            <div class="checkout-header">
+                <h1>Shipping Detail</h1>
+                <p>Please fill out this form properly to follow-up your order</p>
+            </div>
+
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="c-email" class="c-input" placeholder="example@mail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="c-name" class="c-input" placeholder="Your Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="c-wa" class="c-input" placeholder="08xxxxxxxx" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Address Detail</label>
+                    <textarea id="c-address" class="c-input c-textarea" placeholder="Street name, house number..." required></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="checkout-right">
+            
+            <div class="order-box item-list-box">
+                <h2>Item</h2>
+                <div id="checkout-items-wrapper">
+                    </div>
+            </div>
+
+            <div class="order-box subtotal-box">
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span id="c-subtotal" class="accent-text">Rp 0</span>
+                </div>
+                <div class="price-row">
+                    <span>Shipping fee</span>
+                    <span class="accent-text small-note">*to be confirmed</span>
+                </div>
+            </div>
+
+            <div class="notes-box">
+                <h3>NOTES</h3>
+                <ol>
+                    <li>Please note that the subtotal does not include shipping fees yet.</li>
+                    <li>Shipping rates will be calculated separately after you order.</li>
+                    <li>Once submitted, check your email for the order summary.</li>
+                    <li>We will contact you via WhatsApp regarding the final total and payment instructions.</li>
+                </ol>
+            </div>
+
+            <button type="button" class="btn-submit-order" onclick="submitOrder()">Submit</button>
+
+        </div>
+    </div>
+
+    <div id="success-overlay" class="popup-overlay hidden">
+    <div class="success-popup">
+        <img src="Aset/icon/success_check.gif" alt="Success" class="anim-check">
+        
+        <h2 class="pop-title">Order Submitted!</h2>
+        
+        <p class="pop-id">Your Order Number is <span id="final-order-id">#Loading...</span></p>
+        
+        <p class="pop-desc">We’ve sent your order detail to your email and we will inform the payment detail to your WhatsApp, so please kindly wait</p>
+        
+        <button class="btn-ok" onclick="finishOrder()">OK</button>
+    </div>
+</div>
+
+    <script src="js/checkout.js"></script>
+</body>
+</html>
