@@ -672,3 +672,241 @@ body.login-body {
 .back-link:hover {
     color: var(--primary-color);
 }
+
+
+
+
+
+/* =======================================================
+   MOBILE RESPONSIVE ADMIN (MAX-WIDTH: 768px)
+   Paste di paling bawah admin.css
+   ======================================================= */
+
+@media (max-width: 768px) {
+
+    /* --- 1. GLOBAL LAYOUT ADJUSTMENTS --- */
+    body {
+        /* Pastikan padding tidak terlalu besar */
+        padding-top: 70px; 
+    }
+
+    .admin-content {
+        width: 92%; /* Lebarkan konten di HP biar lega */
+        margin: 20px auto;
+    }
+
+    .page-title {
+        font-size: 20px; /* Kecilkan font judul */
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /* --- 2. NAVBAR & SIDEBAR --- */
+    .admin-navbar {
+        padding: 0 20px; /* Kurangi padding kiri kanan */
+        height: 70px;
+    }
+
+    .logo-area .admin-logo {
+        width: 60px; /* Kecilkan logo */
+    }
+
+    .admin-title {
+        font-size: 16px; /* Kecilkan teks judul */
+        /* Trik agar tidak menabrak logo/menu: */
+        white-space: nowrap; 
+    }
+
+    /* Sidebar jadi lebih lebar biar enak dipencet */
+    .admin-sidebar {
+        width: 75%; /* Lebar 75% layar */
+        right: -75%; /* Sembunyi total */
+        padding-top: 80px;
+    }
+    /* Saat aktif, geser ke 0 */
+    .admin-sidebar.active {
+        right: 0;
+    }
+
+    /* --- 3. DASHBOARD STATS (2 Kolom) --- */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Jadi 2 kolom (Kiri-Kanan) */
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        padding: 15px; /* Kurangi padding dalam */
+    }
+
+    .stat-card h3 {
+        font-size: 20px; /* Kecilkan angka */
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    /* --- 4. TOOLBAR (FILTER & SEARCH) --- */
+    .admin-toolbar {
+        flex-direction: column; /* Susun ke bawah */
+        gap: 15px;
+        align-items: stretch; /* Lebar full */
+    }
+
+    .filter-area {
+        flex-wrap: wrap; /* Biar tombol filter turun jika sempit */
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    /* Tombol & Input jadi Full Width atau Flexible */
+    .btn-refresh, 
+    .custom-select, 
+    .custom-date {
+        flex: 1; /* Saling berbagi ruang */
+        font-size: 13px;
+        padding: 8px 10px;
+        text-align: center;
+    }
+    
+    /* Tombol refresh ambil full baris sendiri biar rapi */
+    .btn-refresh {
+        width: 100%; 
+        flex: 100%;
+    }
+
+    .search-area {
+        width: 100%;
+    }
+    
+    .search-area input {
+        width: 100%; /* Input search full width */
+        box-sizing: border-box; /* Agar padding tidak nambah lebar */
+    }
+
+    /* --- 5. TABLE SCROLLABLE (KUNCI UTAMA) --- */
+    .table-container {
+        width: 100%;
+        overflow-x: auto; /* Aktifkan scroll samping */
+        
+        /* Agar scroll halus di iOS */
+        -webkit-overflow-scrolling: touch; 
+        
+        /* Style Border & Shadow halus */
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        background: white;
+        padding-bottom: 5px; /* Ruang scrollbar */
+    }
+
+    .data-table {
+        min-width: 800px; /* PAKSA tabel lebar minimal 800px agar trigger scroll */
+        width: 100%;
+    }
+
+    /* Kecilkan font dalam tabel biar muat banyak */
+    .data-table th, 
+    .data-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    /* Badge Status Font Size */
+    .badge {
+        font-size: 10px;
+        padding: 4px 10px;
+        height: auto; /* Reset tinggi fix */
+        min-height: 24px;
+    }
+
+    /* --- 6. MODAL DETAIL (POP-UP) --- */
+    .modal-card {
+        width: 95%; /* Hampir full layar */
+        height: auto;
+        max-height: 90vh; /* Maksimal 90% tinggi layar */
+        padding: 20px; /* Padding lebih kecil */
+        border-radius: 20px;
+    }
+
+    .modal-header {
+        margin-bottom: 20px;
+    }
+    
+    .modal-title-group h2 {
+        font-size: 18px; /* Judul modal kecil */
+    }
+    .text-id { font-size: 18px; }
+
+    /* Grid Info Customer jadi 1 Kolom */
+    .info-grid {
+        grid-template-columns: 1fr; /* Susun ke bawah */
+        gap: 15px;
+    }
+    
+    /* Reset alignment khusus mobile */
+    .align-right {
+        text-align: left; 
+        padding-left: 0;
+    }
+
+    /* Tabel Barang di Modal juga Scrollable */
+    .modal-table-wrapper {
+        overflow-x: auto;
+    }
+    .items-table {
+        min-width: 500px; /* Paksa lebar biar scroll */
+    }
+
+    /* Bagian Bawah Modal (Action & Kalkulasi) */
+    .modal-bottom-section {
+        flex-direction: column-reverse; /* Tombol action di bawah, Harga di atas */
+        gap: 30px;
+        align-items: center;
+    }
+
+    .calculation-box {
+        width: 100%; /* Lebar full */
+        text-align: left; /* Teks rata kiri biar rapi */
+        margin-left: 0;
+    }
+
+    /* Baris harga dibuat flex biar rapi */
+    .summary-row {
+        align-items: center;
+    }
+    
+    .shipping-input-group {
+        justify-content: flex-end; /* Input tetap di kanan */
+    }
+
+    .action-buttons {
+        width: 100%;
+        justify-content: space-between; /* Tombol confirm & decline rata ujung */
+    }
+
+    .btn-confirm, 
+    .btn-decline {
+        padding: 12px 0; /* Padding atas bawah */
+        width: 48%; /* Bagi 2 kolom */
+        font-size: 13px;
+        text-align: center;
+    }
+
+    /* --- 7. LOGIN PAGE RESPONSIVE --- */
+    .login-container {
+        padding: 20px; /* Padding tepi layar */
+    }
+    
+    .login-card {
+        padding: 40px 25px; /* Kurangi padding dalam */
+        width: 100%;
+    }
+    
+    .login-logo {
+        width: 120px;
+    }
+    
+    .login-header h2 { font-size: 20px; }
+}
