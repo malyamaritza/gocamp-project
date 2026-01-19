@@ -3121,11 +3121,19 @@ body {
 
     /* Filter Bar: Scroll Horizontal biar muat */
     .filter-bar {
-        flex-wrap: nowrap;
-        overflow-x: auto; /* Bisa digeser kiri-kanan */
-        padding-bottom: 15px; /* Ruang scrollbar */
-        width: 100%;
-        justify-content: flex-start;
+        /* Matikan scroll agar dropdown bisa keluar dari kotak */
+        overflow: visible !important; 
+        
+        /* Biarkan tombol turun ke bawah jika layar terlalu sempit */
+        flex-wrap: wrap !important; 
+        
+        /* Hapus padding scrollbar */
+        padding-bottom: 0 !important; 
+    }
+
+    .dropdown-content {
+        z-index: 999 !important; /* Layer paling depan */
+        width: 200px; /* Lebar dropdown di HP */
     }
 
     .filter-btn {
@@ -3141,8 +3149,9 @@ body {
     }
 
     .product-card {
-        height: auto !important; /* Tinggi otomatis mengikuti isi */
-        padding-bottom: 15px;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important; /* Paksa kartu setinggi kolom grid */
     }
 
     .card-image {
@@ -3150,13 +3159,40 @@ body {
     }
 
     .card-content {
-        padding: 0 10px;
+        flex: 1 !important; /* Mengisi sisa ruang kosong setelah gambar */
+        display: flex !important;
+        flex-direction: column !important;
+        padding-bottom: 15px !important; /* Jarak aman ke bawah */
     }
     
-    .text-group { margin-top: 10px; }
-    .p-name { font-size: 14px; white-space: normal; /* Nama boleh turun baris */ }
-    .card-bottom { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 15px; }
-    .btn-add { width: 100%; } /* Tombol Add Full Width */
+    .text-group {
+        margin-bottom: 10px;
+    }
+    .p-name {
+    /* 1. Wajib pakai display mode ini */
+    display: -webkit-box; 
+    
+    /* 2. Tentukan mau dipotong di baris ke berapa */
+    -webkit-line-clamp: 2; 
+    
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */ 
+    
+    /* 4. Sembunyikan sisanya */
+    overflow: hidden; 
+    
+    /* Tambahan agar tinggi kartu tetap rapi walaupun teks cuma 1 baris */
+    min-height: 40px; 
+    }
+    .card-bottom {
+        margin-top: auto !important; /* MAGIC CODE: Ini yang bikin dia turun */
+        width: 100%;
+        gap: 10px; /* Jarak harga ke tombol */
+    }
+    .btn-add {
+        width: 100% !important;
+    }
 
     /* --- 8. PRODUCT DETAIL (MODAL/PAGE) --- */
     .detail-wrapper {
@@ -3315,4 +3351,8 @@ body {
         font-size: 14px;
         margin-bottom: 30px;
     }
+
+
+    
 }
+
