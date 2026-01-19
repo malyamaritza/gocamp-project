@@ -42,25 +42,49 @@
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        // --- 1. FUNGSI HASHING (JANGAN DIUBAH) ---
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // --- 2. LOGIKA LOGIN UTAMA ---
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const passInput = document.getElementById('admin-pass').value;
             const errorMsg = document.getElementById('error-msg');
+            const inputField = document.getElementById('admin-pass');
 
-            // PASSWORD HARDCODED (Sesuai Request)
-            if (passInput === '12345678') {
-                // Simpan status login di Session Storage (Hilang saat browser tutup)
+            // A. Bumbu Rahasia (Salt)
+            const salt = "GoCamp_Pass_Key_2026"; 
+
+            // B. Gabungkan Salt + Input Password
+            const combined = salt + passInput;
+
+            // C. Lakukan Hashing
+            const hashedInput = await sha256(combined);
+
+            // D. Kunci Jawaban YANG BENAR (Sesuai gambar kamu)
+            // Ini hasil dari: "GoCamp_Pass_Key_2026" + "gocampAdmin2026"
+            const correctHash = "841f5b8aa41ced4e07a874e0d1ee816610ba2bf61edf02811838e48841296c16";
+
+            // E. Cek Apakah Cocok?
+            if (hashedInput === correctHash) {
                 sessionStorage.setItem('gocamp_admin_logged_in', 'true');
-                
-                // Redirect ke Admin Panel
                 window.location.href = 'admin.html';
             } else {
-                // Tampilkan Error
                 errorMsg.style.display = 'block';
-                // Animasi getar dikit (opsional)
-                const input = document.getElementById('admin-pass');
-                input.style.border = '1px solid #C62828';
+                inputField.style.border = '1px solid #C62828';
+                
+                inputField.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-5px)' },
+                    { transform: 'translateX(5px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 200 });
             }
         });
     </script>
