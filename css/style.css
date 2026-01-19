@@ -3121,19 +3121,88 @@ body {
 
     /* Filter Bar: Scroll Horizontal biar muat */
     .filter-bar {
-        /* Matikan scroll agar dropdown bisa keluar dari kotak */
-        overflow: visible !important; 
+        display: flex !important;
+        flex-wrap: nowrap !important; /* Paksa satu baris */
+        overflow-x: auto !important;  /* Aktifkan scroll samping */
+        overflow-y: hidden;
         
-        /* Biarkan tombol turun ke bawah jika layar terlalu sempit */
-        flex-wrap: wrap !important; 
+        padding-bottom: 15px !important; /* Ruang untuk jari scroll */
+        margin-bottom: 40px !important;
+        width: 100%;
+        gap: 10px !important;
         
-        /* Hapus padding scrollbar */
-        padding-bottom: 0 !important; 
+        /* Hapus overflow visible yg lama karena kita ganti strategi dropdown */
+        overflow: auto !important; 
     }
 
+    /* Styling Scrollbar (Opsional: Biar halus di Chrome/Android) */
+    .filter-bar::-webkit-scrollbar {
+        height: 4px;
+    }
+    .filter-bar::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+
+    /* Pastikan tombol tidak mengecil */
+    .filter-btn {
+        flex: 0 0 auto !important; /* Jangan menyusut */
+        white-space: nowrap !important; /* Teks jangan turun baris */
+    }
+
+    /* --- 2. DROPDOWN MENU (BOTTOM SHEET STYLE) --- */
+    /* Solusi agar tidak kepotong & tidak ikut scroll */
     .dropdown-content {
-        z-index: 999 !important; /* Layer paling depan */
-        width: 200px; /* Lebar dropdown di HP */
+        position: fixed !important; /* Mengambang di layar (Viewport) */
+        
+        /* Reset posisi lama */
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        
+        /* Tempel di bawah layar */
+        bottom: 0 !important;
+        width: 100% !important;
+        
+        /* Styling ala "App Menu" */
+        background-color: white !important;
+        border-radius: 20px 20px 0 0 !important; /* Sudut atas tumpul */
+        border: none !important;
+        padding: 20px 0 30px 0 !important; /* Padding bawah lebih besar (untuk HP layarkaca lengkung) */
+        
+        /* Shadow Biasa */
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.2) !important;
+        
+        z-index: 10000 !important; /* Pastikan di atas Navbar */
+        
+        /* Default sembunyi (diatur JS display:block) */
+    }
+
+    /* Trik "Backdrop Redup" saat menu muncul */
+    /* Kita gunakan shadow raksasa untuk menggelapkan layar belakang */
+    .dropdown-content.show {
+        display: block !important;
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.2), 0 0 0 1000vh rgba(0,0,0,0.6) !important;
+    }
+
+    /* Styling Isi Menu agar enak dipencet */
+    .dropdown-content a {
+        font-size: 18px !important; /* Font lebih besar */
+        padding: 15px 0 !important;
+        text-align: center !important; /* Rata tengah */
+        border-bottom: 1px solid #f0f0f0;
+        color: #333 !important;
+    }
+    
+    /* Tambahkan judul kecil atau garis di atas sheet (Opsional, pemanis visual) */
+    .dropdown-content::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 5px;
+        background-color: #ddd;
+        border-radius: 10px;
+        margin: 0 auto 15px auto; /* Posisi di tengah atas */
     }
 
     .filter-btn {
