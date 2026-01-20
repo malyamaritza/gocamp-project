@@ -54,7 +54,7 @@ body {
 .filter-area { display: flex; gap: 15px; align-items: center; }
 
 .custom-select {
-    /* --- Style Dasar (Tetap) --- */
+    /* Style Dasar */
     border-radius: 50px; 
     border: 2px solid var(--primary-color);
     color: var(--primary-color); 
@@ -64,24 +64,25 @@ body {
     outline: none; 
     font-family: var(--font-main);
 
-    /* --- SETTING JARAK BARU --- */
-    /* Padding: Atas 8px, Kanan 30px (buat tempat panah), Bawah 8px, Kiri 15px */
-    padding: 8px 24px 8px 15px; 
+    /* REVISI: Padding kanan 40px agar teks tidak nabrak panah */
+    padding: 8px 40px 8px 15px; 
 
-    /* --- CUSTOM ARROW (Ganti Panah Bawaan) --- */
-    /* 1. Hilangkan panah default browser yang bikin jarak jauh */
+    /* REVISI: Agar teks panjang otomatis terpotong (...) dan tidak merusak layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+
+    /* Arrow Style Custom */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
-    /* 2. Masukkan gambar panah SVG (Warna Hijau #005D25 sesuai tema) */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23005D25' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    
-    /* 3. Atur posisi panah agar nempel rapi di kanan */
     background-repeat: no-repeat;
-    background-position: right 10px center; /* Posisi 10px dari kanan */
-    background-size: 14px; /* Ukuran panah */
+    background-position: right 10px center; 
+    background-size: 14px; 
 }
+
 .btn-refresh {
     padding: 8px 20px; border-radius: 50px; border: none; background-color: var(--primary-color);
     color: white; font-weight: 600; cursor: pointer; font-family: var(--font-main);
@@ -675,6 +676,84 @@ body.login-body {
 
 
 
+/* --- FIX: LAYOUT FILTER TANGGAL (Paste di paling bawah) --- */
+
+/* Wrapper Utama Tanggal */
+.date-filter-box {
+    display: none; /* Default hidden (muncul via JS di History) */
+    align-items: center;
+    gap: 15px; /* Jarak antar grup From & To */
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    border: 1px solid #ddd; /* Kasih border tipis pembungkus biar rapi */
+}
+
+/* Grup per Item (Label + Input) */
+.date-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak label ke input */
+}
+
+/* Label Kecil "From" / "To" */
+.date-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+}
+
+/* Input Date-nya */
+.custom-date {
+    padding: 6px 10px;
+    border-radius: 50px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: var(--font-main);
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    background: transparent; /* Biar nyatu sama box */
+    width: 130px; /* Batasi lebar agar tidak kegedean */
+}
+
+
+/* --- HISTORY INFO BOX DI MODAL --- */
+.history-alert {
+    background-color: #f8f9fa;
+    border-left: 5px solid #888; /* Default abu-abu */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+/* Warna border dinamis (diatur via JS nanti) */
+.history-alert.paid { border-left-color: var(--primary-color); background-color: #E8F5E9; }
+.history-alert.declined { border-left-color: #C62828; background-color: #FFEBEE; }
+
+.history-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.history-row:last-child { margin-bottom: 0; }
+
+.h-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.h-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+}
+
 
 
 /* =======================================================
@@ -909,4 +988,23 @@ body.login-body {
     }
     
     .login-header h2 { font-size: 20px; }
+
+    .date-filter-box {
+        flex-direction: column; /* Di HP susun ke bawah */
+        gap: 10px;
+        width: 100%;
+        border: none; /* Hapus border pembungkus di HP */
+        padding: 0;
+    }
+
+    .date-group {
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* Label kiri, Input kanan */
+    }
+
+    .custom-date {
+        width: 85%; /* Input lebih lebar di HP */
+        background: white;
+    }
 }

@@ -30,23 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('nav-history').classList.remove('active');
         document.getElementById('nav-' + tabName).classList.add('active');
 
-        // Update Judul Halaman & Kolom Tabel
+        // Update Judul & Kolom Tabel
         const pageTitle = document.getElementById('page-title');
         const thLastCol = document.getElementById('th-last-col');
         const filterStatus = document.getElementById('filter-status');
 
-        const dateStart = document.getElementById('date-start');
-        const dateEnd = document.getElementById('date-end');
-        const dateSep = document.getElementById('date-sep');
+        // Ambil Wrapper Tanggal Baru
+        const dateWrapper = document.getElementById('date-wrapper');
 
         if (tabName === 'order') {
             pageTitle.innerText = "Active Orders";
             thLastCol.innerText = "Action";
             
-            // Sembunyikan Input Tanggal di menu Order
-            dateStart.style.display = 'none';
-            dateEnd.style.display = 'none';
-            dateSep.style.display = 'none';
+            // Sembunyikan Tanggal di menu Order
+            if(dateWrapper) dateWrapper.style.display = 'none';
 
             // Filter Status Order
             filterStatus.innerHTML = `
@@ -56,12 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             pageTitle.innerText = "History Logs";
-            thLastCol.innerText = "Notes";
+            thLastCol.innerText = "Action";
 
-            // Munculkan Input Tanggal di menu History
-            dateStart.style.display = 'block';
-            dateEnd.style.display = 'block';
-            dateSep.style.display = 'block';
+            // Munculkan Tanggal di menu History (pakai flex biar sejajar)
+            if(dateWrapper) dateWrapper.style.display = 'flex';
 
             // Filter Status History
             filterStatus.innerHTML = `
@@ -72,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         toggleSidebar();
-        applyFilters(); // Render ulang tabel dengan filter baru
+        applyFilters(); 
     };
 
     // --- 2. FETCH DATA ---
@@ -197,10 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         data.forEach((order, index) => {
-            // A. Format Tanggal & Parsing Waktu
+            // Parsing Date
             let dateStr = "-";
-            let dateObj = null; // Siapkan variabel object date
-            
+            let dateObj = null;
             try {
                 dateObj = new Date(order.date);
                 if (!isNaN(dateObj.getTime())) {
@@ -211,39 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     dateStr = String(order.date).split("T")[0]; 
                 }
-            } catch(e) { console.error("Date Error", e); }
+            } catch(e) {}
 
-            // B. Badge Status Standard
+            // Badge Status
             let badgeClass = 'badge-pending';
             if(order.status === 'Waiting for Payment') badgeClass = 'badge-waiting';
             else if(order.status === 'Paid') badgeClass = 'badge-paid';
             else if(order.status === 'Declined') badgeClass = 'badge-declined';
 
-            // C. [BARU] LOGIKA WARNING 24 JAM
+            // Overdue Logic
             let overdueHTML = '';
-            
-            // Cek hanya jika status 'Waiting for Payment' dan dateObj valid
             if (order.status === 'Waiting for Payment' && dateObj) {
                 const now = new Date();
-                // Hitung selisih waktu dalam milidetik
-                const diffMs = now - dateObj; 
-                // Konversi ke jam (ms / 1000 / 60 / 60)
-                const diffHours = diffMs / (1000 * 60 * 60);
-
-                // Jika lebih dari 24 jam, tampilkan warning
+                const diffHours = (now - dateObj) / (1000 * 60 * 60);
                 if (diffHours > 24) {
                     overdueHTML = `<div class="overdue-badge">⚠️ >24 Jam</div>`;
                 }
             }
 
-            // D. Kolom Terakhir (Action / Notes)
-            let lastColumnContent = '';
-            if (currentView === 'order') {
-                lastColumnContent = `<button class="action-btn" onclick="openModal('${order.order_id}')">view detail</button>`;
-            } else {
-                const notes = order.notes ? order.notes : "-";
-                lastColumnContent = `<span class="notes-text">${notes}</span>`;
-            }
+            // REVISI: Kolom Terakhir SELALU tombol View Detail
+            // Kita tidak lagi menampilkan notes di tabel, tapi di dalam modal detail
+            let lastColumnContent = `<button class="action-btn" onclick="openModal('${order.order_id}')">View Detail</button>`;
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -253,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${order.customer_name}</td>
                 <td class="status-cell">
                     <span class="badge ${badgeClass}">${order.status}</span>
-                    ${overdueHTML} </td>
+                    ${overdueHTML} 
+                </td>
                 <td>${lastColumnContent}</td>
             `;
             tbody.appendChild(tr);
@@ -266,16 +249,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentOrderData = allOrders.find(o => o.order_id == orderId);
         if(!currentOrderData) return;
 
+        // 1. Isi Data Dasar (Sama kayak dulu)
         let displayId = String(currentOrderData.order_id);
         if (!displayId.startsWith('#')) displayId = "#" + displayId;
         document.getElementById('m-order-id').innerText = displayId;
-
         document.getElementById('m-status-badge').innerText = currentOrderData.status;
         document.getElementById('m-name').innerText = currentOrderData.customer_name;
         document.getElementById('m-email').innerText = currentOrderData.email;
         document.getElementById('m-phone').innerText = currentOrderData.whatsapp; 
         document.getElementById('m-address').innerText = currentOrderData.address;
 
+        // 2. Render Items (Sama kayak dulu)
         const items = JSON.parse(currentOrderData.items || "[]");
         const tbody = document.getElementById('m-items-body');
         tbody.innerHTML = '';
@@ -302,39 +286,87 @@ document.addEventListener('DOMContentLoaded', () => {
         const shipInput = document.getElementById('m-shipping-input');
         shipInput.value = currentOrderData.shipping || 0;
         
+        // Hitung total awal
         calculateTotal(); 
 
-        const btnCount = document.querySelector('.btn-count');
+        // --- 3. LOGIKA UI: ACTIVE vs HISTORY ---
         
-        if (currentOrderData.status === 'Pending') {
-            shipInput.disabled = false;
-            btnCount.disabled = false;
-            btnCount.style.backgroundColor = ""; 
-            btnCount.style.cursor = "pointer";
-            shipInput.style.backgroundColor = "white";
-        } else {
-            shipInput.disabled = true;
-            btnCount.disabled = true;
-            btnCount.style.backgroundColor = "#ccc"; 
-            btnCount.style.cursor = "not-allowed";
-            shipInput.style.backgroundColor = "#f0f0f0";
-        }
+        // Ambil elemen-elemen UI
+        const btnSendWA = document.querySelector('.btn-send-wa');
+        const btnActions = document.querySelector('.action-buttons'); // Tombol Confirm/Decline
+        const btnCount = document.querySelector('.btn-count');
+        const historyBox = document.getElementById('history-info-box');
+        
+        // Reset Kelas Warna Box
+        historyBox.classList.remove('paid', 'declined');
 
-        const btnConfirm = document.getElementById('btn-confirm-order');
         if (currentOrderData.status === 'Paid' || currentOrderData.status === 'Declined') {
-            btnConfirm.disabled = true;
-            btnConfirm.innerText = currentOrderData.status; 
-            btnConfirm.style.backgroundColor = "#ccc";
-        } else if (currentOrderData.status === 'Waiting for Payment') {
-            btnConfirm.disabled = false; 
-            btnConfirm.innerText = "Confirm";
-            btnConfirm.style.backgroundColor = "#0047AB"; 
+            /* --- MODE HISTORY (READ ONLY) --- */
+            
+            // A. Sembunyikan Tombol Aksi
+            btnSendWA.style.display = 'none';
+            btnActions.style.display = 'none';
+            btnCount.style.display = 'none';
+            
+            // B. Matikan Input Shipping
+            shipInput.disabled = true;
+            shipInput.style.backgroundColor = "#f0f0f0";
+            shipInput.style.border = "none";
+
+            // C. Munculkan Kotak History
+            historyBox.style.display = 'block';
+
+            // D. Isi Data Tanggal & Notes
+            // Format Tanggal (Dari data json 'date')
+            let histDate = new Date(currentOrderData.date).toLocaleString('id-ID', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit'
+            });
+            document.getElementById('h-date-change').innerText = histDate;
+
+            // Isi Notes
+            const noteEl = document.getElementById('h-notes-text');
+            if (currentOrderData.status === 'Declined') {
+                historyBox.classList.add('declined'); // Warna Merah
+                document.getElementById('row-notes').style.display = 'flex';
+                noteEl.innerText = currentOrderData.notes || "No reason provided.";
+            } else {
+                historyBox.classList.add('paid'); // Warna Hijau
+                // Kalau Paid biasanya gak ada notes penolakan, jadi kita sembunyikan atau tulis pesan sukses
+                document.getElementById('row-notes').style.display = 'flex';
+                noteEl.innerText = "Payment Verified & Order Completed.";
+            }
+
         } else {
-            btnConfirm.disabled = true; 
-            btnConfirm.innerText = "Confirm";
-            btnConfirm.style.backgroundColor = "#ccc"; 
+            /* --- MODE ACTIVE (EDITABLE) --- */
+            
+            // A. Munculkan Tombol Aksi
+            btnSendWA.style.display = 'flex';
+            btnActions.style.display = 'flex';
+            btnCount.style.display = 'inline-block';
+            
+            // B. Sembunyikan Kotak History
+            historyBox.style.display = 'none';
+
+            // C. Atur Input Shipping & Tombol Confirm
+            if (currentOrderData.status === 'Pending') {
+                shipInput.disabled = false;
+                shipInput.style.backgroundColor = "white";
+                shipInput.style.border = "1px solid #ccc";
+                // Disable Confirm, Enable Decline
+                document.getElementById('btn-confirm-order').disabled = true;
+                document.getElementById('btn-confirm-order').style.backgroundColor = "#ccc";
+            } else if (currentOrderData.status === 'Waiting for Payment') {
+                shipInput.disabled = true; // Biasanya dikunci kalau udah kirim tagihan
+                shipInput.style.backgroundColor = "#f0f0f0";
+                // Enable Confirm
+                const btnConfirm = document.getElementById('btn-confirm-order');
+                btnConfirm.disabled = false;
+                btnConfirm.style.backgroundColor = "#0047AB";
+                btnConfirm.innerText = "Confirm Payment";
+            }
         }
 
+        // Tampilkan Modal
         document.getElementById('detail-modal').classList.add('active');
     };
 
@@ -358,9 +390,26 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateTotal();
         const finalShip = currentOrderData.temp_shipping;
         const finalTotal = currentOrderData.temp_total;
-        let phone = String(currentOrderData.whatsapp).replace(/\D/g, ''); 
-        if (phone.startsWith('0')) phone = '62' + phone.substring(1);
         
+        // --- LOGIKA PERBAIKAN NOMOR WA ---
+        // 1. Ambil nomor, jadikan string, hapus karakter selain angka
+        let rawPhone = String(currentOrderData.whatsapp || "").replace(/\D/g, ''); 
+        let phone = rawPhone;
+
+        // 2. Cek format dan perbaiki
+        if (phone.startsWith('62')) {
+            // Sudah benar (628xxxx) -> Biarkan
+        } else if (phone.startsWith('0')) {
+            // Format 08xxxx -> Ganti 0 depan jadi 62
+            phone = '62' + phone.substring(1);
+        } else if (phone.startsWith('8')) {
+            // Format 8xxxx (0 hilang) -> Tambahkan 62 di depan
+            phone = '62' + phone;
+        } else {
+            // Format tidak dikenal -> Default tambah 62
+            phone = '62' + phone; 
+        }
+
         let itemDetails = "";
         try {
             const items = JSON.parse(currentOrderData.items || "[]");
@@ -369,8 +418,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let msg = `Halo Kak ${currentOrderData.customer_name},\n\nKami dari *GoCamp* ingin menginformasikan rincian tagihan pesanan kakak dengan ID *${currentOrderData.order_id}*.\n\n*Detail Pesanan:*\n${itemDetails}\n--------------------------------\nSubtotal: ${formatRupiah(currentOrderData.clean_subtotal)}\nOngkir: ${formatRupiah(finalShip)}\n*TOTAL TAGIHAN: ${formatRupiah(finalTotal)}*\n\nSilakan melakukan pembayaran ke rekening berikut:\n*BCA 1234567890 a/n GoCamp*\n\nMohon konfirmasi jika sudah transfer ya kak. Terima kasih!`;
 
+        // Buka WhatsApp
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
 
+        // Update Database
         const payload = { action: "update_shipping", order_id: currentOrderData.order_id, shipping_fee: finalShip, total_price: finalTotal };
         const btnSend = document.querySelector('.btn-send-wa');
         const oriText = btnSend.innerHTML;

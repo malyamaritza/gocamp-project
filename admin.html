@@ -67,9 +67,17 @@
             <div class="filter-area">
                 <button class="btn-refresh" onclick="fetchOrders()">Refresh Data</button>
 
-                <input type="date" id="date-start" class="custom-date" onchange="applyFilters()" style="display:none;">
-                <span id="date-sep" style="display:none; font-weight:bold;">-</span>
-                <input type="date" id="date-end" class="custom-date" onchange="applyFilters()" style="display:none;">
+                <div id="date-wrapper" class="date-filter-box">
+    <div class="date-group">
+        <span class="date-label">From:</span>
+        <input type="date" id="date-start" class="custom-date" onchange="applyFilters()">
+    </div>
+    
+    <div class="date-group">
+        <span class="date-label">To:</span>
+        <input type="date" id="date-end" class="custom-date" onchange="applyFilters()">
+    </div>
+</div>
 
                 <div class="dropdown-wrapper">
                     <select id="filter-date" class="custom-select" onchange="applyFilters()">
@@ -139,6 +147,19 @@
                         <p id="m-address">-</p>
                     </div>
                 </div>
+
+                <div id="history-info-box" class="history-alert" style="display:none;">
+    <div class="history-row">
+        <span class="h-label">Status Changed On:</span>
+        <span class="h-value" id="h-date-change">-</span>
+    </div>
+    <div class="history-row" id="row-notes">
+        <span class="h-label">Notes / Reason:</span>
+        <p class="h-value" id="h-notes-text">-</p>
+    </div>
+</div>
+
+<hr class="modal-divider">
 
                 <hr class="modal-divider">
 
