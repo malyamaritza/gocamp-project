@@ -8,7 +8,7 @@
 
 ### 🛒 Sisi Pelanggan (Frontend)
 * **Katalog Produk:** Menampilkan daftar produk lengkap dengan foto, harga, dan stok real-time.
-* **Pencarian & Filter:** Mencari produk berdasarkan nama atau kategori.
+* **Filter:** Mencari produk berdasarkan kategori.
 * **Keranjang Belanja:** Menyimpan barang belanjaan sementara di browser (*Local Storage*).
 * **Checkout System:** Pembaruan stok otomatis saat pemesanan.
 * **Notifikasi Email:** Pelanggan otomatis menerima invoice via email setelah checkout.
